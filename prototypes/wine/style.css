@@ -1,0 +1,461 @@
+:root {
+    --bordeaux:    #4A0404;
+    --bordeaux-mid: #7B1C1C;
+    --gold:        #D4AF37;
+    --gold-light:  #F0D060;
+    --cream:       #F5F0E8;
+    --cream-dark:  #E8E0D0;
+    --ink:         #1A1A1A;
+    --parchment:   #FDF8EF;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    cursor: default;
+}
+
+body {
+    background: linear-gradient(
+        160deg,
+        #FDF8EF 0%,
+        #F5F0E8 30%,
+        #EDE0CC 60%,
+        #E8D5B8 80%,
+        #DFC9A0 100%
+    );
+    color: var(--ink);
+    font-family: 'Cormorant Garamond', serif;
+    overflow-x: hidden;
+}
+
+/* Custom Typography */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    text-transform: uppercase;
+    color: var(--bordeaux);
+}
+
+/* Preloader */
+#loader {
+    position: fixed;
+    inset: 0;
+    background: var(--parchment);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 1s ease;
+}
+
+.loader-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    width: 250px;
+}
+
+.progress-bar-container {
+    width: 100%;
+    height: 2px;
+    background: var(--cream-dark);
+}
+
+#progress-bar {
+    width: 0%;
+    height: 100%;
+    background: var(--bordeaux);
+    transition: width 0.1s ease;
+}
+
+#loading-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.857rem;
+    color: var(--bordeaux);
+    letter-spacing: 0.1em;
+}
+
+/* Hero Title (Fixed) */
+.fixed-title {
+    position: fixed;
+    top: 2rem;
+    left: 2rem;
+    font-family: 'Cinzel', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--bordeaux);
+    letter-spacing: 0.15em;
+    z-index: 100;
+    mix-blend-mode: multiply;
+}
+
+/* FASE 1: Hero Wrapper & Canvas Sticky */
+.hero-wrapper {
+    height: 400vh;
+    position: relative;
+    min-height: 100vh;
+    z-index: 2;
+}
+
+.canvas-sticky {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    /* This section is completely transparent to let the body gradient show */
+}
+
+#wine-canvas {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transform-origin: center center;
+    /* We apply Chroma Key in JS, no mix-blend-mode needed here as the pixels will be perfectly transparent! */
+}
+
+.scroll-indicator {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.786rem;
+    color: var(--bordeaux);
+    text-transform: uppercase;
+    transition: opacity 0.3s ease;
+    z-index: 10;
+    font-family: 'Inter', sans-serif;
+    letter-spacing: 0.2em;
+}
+
+/* Narrative Beats */
+.beats-container {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 5;
+}
+
+.narrative-beat {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 2rem 5vw;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.narrative-beat h2 {
+    font-family: 'Cinzel', serif;
+    font-weight: 400;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+    font-size: clamp(4rem, 10vw, 9rem);
+    color: var(--bordeaux);
+}
+
+.beat-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    color: var(--ink);
+}
+
+.cta-button {
+    pointer-events: auto;
+    margin-top: 2rem;
+    display: inline-block;
+    background: var(--gold);
+    color: var(--bordeaux);
+    font-family: 'Inter', sans-serif;
+    padding: 1rem 2rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+}
+
+.cta-button:hover {
+    background: transparent;
+    border-color: var(--gold);
+    color: var(--gold);
+}
+
+/* Beat Specific Layouts */
+.beat-a { align-items: center; text-align: center; }
+.beat-b { align-items: flex-start; padding-left: 10vw; }
+.beat-c { align-items: flex-end; text-align: right; padding-right: 10vw; }
+.beat-d { align-items: center; text-align: center; }
+
+
+/* FASE 2: SVG Path Tracking */
+.scroll-container {
+    position: relative;
+    width: 100%;
+    min-height: 200vh; /* Will be set dynamically by JS */
+    z-index: 1;
+}
+
+#path-svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* Bottle Element (DOM) */
+.bottle-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 400px; /* Big enough to hold the scaled frame */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    transform-origin: center center;
+    will-change: transform;
+    opacity: 0; /* Hidden initially, shown after Phase 1 */
+}
+
+.bottle-img {
+    width: 100%;
+    height: auto;
+    /* drop shadow not strictly needed if frame has lighting, but can help */
+    filter: drop-shadow(0 8px 24px rgba(74,4,4,0.35));
+    animation: bottle-sway 3s ease-in-out infinite alternate;
+    transform-origin: center center;
+}
+
+@keyframes bottle-sway {
+    0% { transform: rotate(-3deg); }
+    100% { transform: rotate(3deg); }
+}
+
+/* Stop Cards */
+.stop-cards {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 5;
+}
+
+.card {
+    position: absolute;
+    width: 90vw;
+    max-width: 450px;
+    padding: 2.5rem;
+    border: 1.5px solid rgba(212, 175, 55, 0.45);
+    box-shadow: 4px 4px 0 rgba(74,4,4,0.12);
+    opacity: 0;
+    transform: translateY(30px);
+    transition: box-shadow 0.3s ease;
+}
+
+.card:hover {
+    box-shadow: 8px 8px 0 rgba(74,4,4,0.2);
+}
+
+.card-odd { background: var(--parchment); left: 5vw; }
+.card-even { background: var(--cream-dark); right: 5vw; }
+
+.card .label {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.4em;
+    color: var(--gold);
+    opacity: 0.8;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+}
+
+.card h2 {
+    font-family: 'Cinzel', serif;
+    color: var(--bordeaux);
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    text-shadow: none;
+    line-height: 1.1;
+}
+
+.card p {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: clamp(15px, 2vw, 20px);
+    color: var(--ink);
+    opacity: 0.75;
+    line-height: 1.5;
+}
+
+/* Keep Scrolling Section */
+.keep-scrolling {
+    background: var(--bordeaux);
+    padding: 8rem 2rem;
+    text-align: center;
+    position: relative;
+    z-index: 20;
+    border-top: 2px solid var(--gold);
+}
+
+.ks-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.4em;
+    color: var(--gold);
+    opacity: 0.8;
+    margin-bottom: 2rem;
+}
+
+.ks-headline {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(2rem, 5vw, 4rem);
+    color: var(--parchment);
+    margin-bottom: 1.5rem;
+}
+
+.ks-headline em {
+    color: var(--gold);
+    font-style: normal;
+}
+
+.ks-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.5rem;
+    color: var(--cream);
+    opacity: 0.7;
+}
+
+/* Clip Section */
+.clip-section {
+    padding: 10rem 2rem;
+    background: var(--parchment);
+    position: relative;
+    z-index: 20;
+    overflow: hidden;
+}
+
+.hover-text-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.clip-text {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(2.5rem, 6vw, 6rem);
+    color: var(--bordeaux);
+    line-height: 1.1;
+    white-space: nowrap;
+    transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.clip-text:hover { transform: scale(1.05); }
+
+.clip-text span {
+    padding: 0.2em 0.5em;
+    display: inline-block;
+    transition: all 0.3s ease;
+}
+
+.clip-text span.odd { background: var(--bordeaux); color: var(--parchment); }
+.clip-text span.even { background: var(--gold); color: var(--bordeaux); }
+.clip-text:hover span.odd { background: var(--bordeaux-mid); }
+.clip-text:hover span.even { background: var(--gold-light); }
+
+/* Footer */
+.footer {
+    background: var(--bordeaux);
+    border-top: 2px solid var(--gold);
+    padding: 6rem 2rem 3rem;
+    text-align: center;
+    position: relative;
+    z-index: 20;
+    overflow: hidden;
+}
+
+.footer-brand {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(2rem, 5vw, 4rem);
+    color: var(--parchment);
+    margin-bottom: 3rem;
+    letter-spacing: 0.1em;
+}
+
+.footer-bottom {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 4rem;
+    flex-wrap: wrap;
+}
+
+.footer-bottom button {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.2em;
+    padding: 1rem 2rem;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-email { background: var(--gold); color: var(--bordeaux); }
+.btn-email:hover { background: var(--gold-light); }
+.btn-codepen { background: transparent; color: var(--gold); border: 1px solid var(--gold) !important; }
+.btn-codepen:hover { background: rgba(212,175,55,0.1); }
+
+.outro {
+    border-top: 1px solid rgba(212,175,55,0.2);
+    padding-top: 2rem;
+}
+
+.outro p {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: var(--parchment);
+    opacity: 0.5;
+}
+
+/* Decorative floating elements */
+.deco {
+    position: absolute;
+    font-size: 2rem;
+    color: var(--gold);
+    opacity: 0.18;
+    pointer-events: none;
+}
+.deco-1 { top: 10%; left: 10%; animation: spin 20s linear infinite; }
+.deco-2 { top: 50%; right: 5%; animation: spin 15s linear infinite reverse; }
+.deco-3 { bottom: 20%; left: 15%; animation: spin 25s linear infinite; }
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@media (min-width: 768px) {
+    .card-odd { left: 10vw; }
+    .card-even { right: 10vw; }
+}

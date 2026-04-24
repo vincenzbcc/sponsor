@@ -1,0 +1,748 @@
+:root {
+    /* Palette */
+    --bg-global: #0A0804;
+    --text-titles: rgba(255, 248, 235, 0.92);
+    --text-body: rgba(255, 248, 235, 0.55);
+    --accent-gold: #C9A84C;
+    --accent-ruby: #8B2020;
+    
+    /* Typography */
+    --font-serif: 'Cormorant Garamond', serif;
+    --font-sans: 'Inter', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-global);
+    color: var(--text-body);
+    font-family: var(--font-sans);
+    overflow-x: hidden;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 2px;
+}
+::-webkit-scrollbar-track {
+    background: var(--bg-global);
+}
+::-webkit-scrollbar-thumb {
+    background: rgba(201,168,76,0.2);
+    border-radius: 2px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(201,168,76,0.5);
+}
+
+body.cursor-active {
+    cursor: none;
+}
+
+/* 1. Custom Cursor */
+#custom-cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 24px;
+    height: 24px;
+    border: 1px solid rgba(201,168,76,0.6);
+    border-radius: 50%;
+    background: transparent;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s ease, height 0.3s ease, background 0.3s ease;
+    display: none; /* Shown via JS only for mouse */
+}
+
+#custom-cursor.hovered {
+    width: 44px;
+    height: 44px;
+    background: rgba(201,168,76,0.08);
+}
+
+/* Typography Global */
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-serif);
+    color: var(--text-titles);
+    font-weight: 300;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.gold-accent {
+    color: var(--accent-gold);
+}
+
+/* 2. Ticker Marquee */
+.ticker-wrapper {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 36px;
+    background: var(--bg-global);
+    border-bottom: 0.5px solid rgba(201,168,76,0.15);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    z-index: 60;
+}
+
+.ticker-content {
+    display: flex;
+    white-space: nowrap;
+    animation: ticker 30s linear infinite;
+    font-family: var(--font-sans);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: rgba(255,248,235,0.4);
+}
+
+.ticker-content span {
+    display: inline-flex;
+    align-items: center;
+    padding-right: 2rem;
+}
+
+.ticker-content .sep {
+    color: var(--accent-gold);
+    margin: 0 1rem;
+    font-size: 8px;
+}
+
+@keyframes ticker {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+/* 3. Navbar */
+.navbar {
+    position: fixed;
+    top: 36px;
+    width: 100%;
+    background: rgba(10, 8, 4, 0.75);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    z-index: 50;
+    padding: 1.5rem 2rem;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.nav-logo {
+    font-family: var(--font-serif);
+    font-weight: 300;
+    font-size: 1.5rem;
+    letter-spacing: 0.3em;
+    color: var(--text-titles);
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-links a {
+    font-family: var(--font-sans);
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    color: rgba(255,248,235,0.5);
+    transition: color 0.2s ease;
+    text-transform: uppercase;
+}
+
+.nav-links a:hover {
+    color: var(--text-titles);
+}
+
+.nav-mobile-btn {
+    display: none;
+    flex-direction: column;
+    gap: 4px;
+    cursor: pointer;
+}
+
+.nav-mobile-btn span {
+    width: 24px;
+    height: 1px;
+    background: var(--text-titles);
+}
+
+.nav-drawer {
+    display: none;
+}
+
+/* Preloader */
+#loader {
+    position: fixed;
+    inset: 0;
+    background: var(--bg-global);
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 1s ease;
+}
+
+.loader-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    width: 200px;
+}
+
+.progress-bar-container {
+    width: 100%;
+    height: 1px;
+    background: rgba(201,168,76,0.2);
+}
+
+#progress-bar {
+    width: 0%;
+    height: 100%;
+    background: var(--accent-gold);
+    transition: width 0.1s ease;
+}
+
+#loading-text {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: var(--text-titles);
+}
+
+/* 4. Hero Canvas */
+.hero-wrapper {
+    height: 400vh;
+    position: relative;
+    min-height: 100vh;
+}
+
+.canvas-sticky {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    background: var(--bg-global);
+}
+
+#watch-canvas {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* Fused with background */
+}
+
+.scroll-indicator {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: rgba(255,248,235,0.5);
+    text-transform: uppercase;
+    transition: opacity 0.3s ease;
+    z-index: 10;
+}
+
+.scroll-indicator .gold-accent {
+    font-size: 8px;
+    animation: bounce 2s infinite ease-in-out;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(5px); }
+}
+
+.beats-container {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 5;
+}
+
+.narrative-beat {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 2rem 5vw;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.narrative-beat h2 {
+    line-height: 1.1;
+    margin-bottom: 1rem;
+}
+
+.narrative-beat p {
+    font-size: clamp(1rem, 1.5vw, 1.2rem);
+    max-width: 600px;
+}
+
+.micro-tag {
+    margin-top: 1.5rem;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: var(--accent-gold);
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.micro-tag .gold-accent {
+    font-size: 8px;
+}
+
+/* Beat Specific Layouts */
+.beat-a {
+    align-items: center;
+    text-align: center;
+}
+.beat-a h2 { font-size: clamp(4rem, 10vw, 9rem); }
+
+.beat-b {
+    align-items: flex-start;
+    padding-left: 10vw;
+}
+.beat-b h2 { font-size: clamp(3rem, 7vw, 7rem); }
+
+.beat-c {
+    align-items: flex-end;
+    text-align: right;
+    padding-right: 10vw;
+}
+.beat-c h2 { font-size: clamp(3rem, 7vw, 7rem); }
+.beat-c p { margin-left: auto; }
+
+.beat-d {
+    align-items: center;
+    text-align: center;
+}
+.beat-d h2 { font-size: clamp(4rem, 10vw, 9rem); }
+
+.cta-button {
+    margin-top: 3rem;
+    background: var(--accent-gold);
+    color: var(--bg-global);
+    padding: 16px 40px;
+    border-radius: 100px;
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    box-shadow: 0 0 28px rgba(201,168,76,0.35);
+    pointer-events: auto;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: inline-block;
+}
+
+.cta-button:hover {
+    transform: scale(1.03);
+    box-shadow: 0 0 35px rgba(201,168,76,0.5);
+}
+
+/* 5. Stats Strip */
+.stats-strip {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background: rgba(201,168,76,0.04);
+    border-top: 0.5px solid rgba(201,168,76,0.12);
+    border-bottom: 0.5px solid rgba(201,168,76,0.12);
+    padding: 3rem 0;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 20;
+}
+
+.stat-item {
+    text-align: center;
+    padding: 1rem 2rem;
+}
+
+.stat-number {
+    font-family: var(--font-serif);
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    color: var(--accent-gold);
+    margin-bottom: 0.5rem;
+    line-height: 1;
+}
+
+.stat-label {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: rgba(255,248,235,0.5);
+    text-transform: uppercase;
+}
+
+/* 6. Slider Manifattura */
+.manifattura-section {
+    padding: 8rem 5vw;
+    overflow: hidden;
+}
+
+.slider-container {
+    cursor: grab;
+    overflow: hidden;
+}
+
+.slider-container:active {
+    cursor: grabbing;
+}
+
+.slider-track {
+    display: flex;
+    gap: 2rem;
+    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.feature-card {
+    min-width: 300px;
+    width: 350px;
+    flex-shrink: 0;
+    background: rgba(255,248,235,0.02);
+    border: 0.5px solid rgba(201,168,76,0.2);
+    border-radius: 16px;
+    padding: 2rem;
+    transition: background 0.3s ease;
+}
+
+.feature-card:hover {
+    background: rgba(255,248,235,0.04);
+}
+
+.feature-tag {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: var(--accent-gold);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    display: inline-block;
+}
+
+.feature-card h3 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+}
+
+.feature-card p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* 7. Grid Componenti */
+.components-section {
+    padding: 4rem 5vw 8rem;
+}
+
+.components-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.component-card {
+    background: rgba(255,248,235,0.02);
+    border: 0.5px solid rgba(201,168,76,0.1);
+    border-radius: 12px;
+    padding: 2.5rem;
+    transition: border-color 0.3s ease;
+}
+
+.component-card:hover {
+    border-color: rgba(201,168,76,0.3);
+}
+
+.comp-num {
+    font-family: var(--font-serif);
+    font-size: 2rem;
+    color: var(--accent-gold);
+    opacity: 0.5;
+    margin-bottom: 1rem;
+}
+
+.comp-title {
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    color: var(--text-titles);
+    margin-bottom: 0.8rem;
+}
+
+.comp-desc {
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.component-special {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 3rem;
+    border: none;
+    background: transparent;
+}
+
+.component-special h3 {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.component-special a {
+    color: var(--accent-gold);
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    position: relative;
+}
+
+.component-special a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: var(--accent-gold);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s ease;
+}
+
+.component-special a:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+/* 8. Pricing */
+.pricing-section {
+    padding: 5rem 5vw 10rem;
+}
+
+.pricing-container {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.pricing-card {
+    flex: 1;
+    background: rgba(255,248,235,0.01);
+    border: 0.5px solid rgba(255,248,235,0.1);
+    border-radius: 16px;
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.pricing-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.pricing-card .price {
+    font-family: var(--font-serif);
+    font-size: 3rem;
+    color: var(--text-titles);
+    margin-bottom: 2rem;
+}
+
+.features-list {
+    list-style: none;
+    flex-grow: 1;
+    margin-bottom: 3rem;
+}
+
+.features-list li {
+    padding: 0.8rem 0;
+    border-bottom: 0.5px solid rgba(255,248,235,0.05);
+    font-size: 0.95rem;
+}
+
+.pricing-cta {
+    padding: 16px;
+    border-radius: 100px;
+    font-family: var(--font-sans);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.secondary-cta {
+    background: transparent;
+    border: 1px solid rgba(201,168,76,0.4);
+    color: var(--text-titles);
+}
+
+.secondary-cta:hover {
+    background: rgba(201,168,76,0.08);
+}
+
+.pricing-card.highlighted {
+    border: 1px solid rgba(201,168,76,0.4);
+    box-shadow: 0 0 30px rgba(201,168,76,0.05);
+}
+
+.badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--accent-gold);
+    color: var(--bg-global);
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.primary-cta {
+    background: var(--accent-gold);
+    color: var(--bg-global);
+    border: none;
+    box-shadow: 0 0 24px rgba(201,168,76,0.35);
+}
+
+.primary-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 30px rgba(201,168,76,0.5);
+}
+
+/* 9. Footer */
+.site-footer {
+    background: #050402; /* Slightly darker than global */
+    padding-top: 4rem;
+}
+
+.footer-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 5vw 3rem;
+}
+
+.footer-logo {
+    font-family: var(--font-serif);
+    font-size: 2rem;
+    letter-spacing: 0.3em;
+    color: var(--text-titles);
+}
+
+.footer-contact a {
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    color: rgba(255,248,235,0.4);
+    transition: color 0.3s;
+}
+
+.footer-contact a:hover {
+    color: var(--text-titles);
+}
+
+.footer-ticker {
+    position: relative;
+    top: auto;
+    border-bottom: none;
+    border-top: 0.5px solid rgba(201,168,76,0.15);
+}
+
+.footer-bottom {
+    padding: 2rem 5vw;
+    display: flex;
+    justify-content: center;
+}
+
+.footer-links {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: rgba(255,248,235,0.3);
+    text-transform: uppercase;
+}
+
+.footer-links .sep {
+    margin: 0 1rem;
+}
+
+.footer-links a:hover {
+    color: rgba(255,248,235,0.8);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .nav-links { display: none; }
+    .nav-mobile-btn { display: flex; }
+    
+    .stats-strip {
+        gap: 2rem;
+        padding: 2rem 0;
+    }
+    
+    .stat-item {
+        width: 40%;
+    }
+
+    .pricing-container {
+        flex-direction: column;
+    }
+    
+    .pricing-card.highlighted {
+        margin-top: 2rem;
+    }
+
+    .narrative-beat {
+        padding: 2rem;
+        text-align: center;
+        align-items: center;
+    }
+    .beat-b, .beat-c {
+        align-items: center;
+        text-align: center;
+        padding: 2rem;
+    }
+    .beat-c p { margin: 0 auto; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+    /* Specific overrides for reduced motion will be handled in JS by disabling the canvas hijack */
+}

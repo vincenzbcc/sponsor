@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIKON Project | Maurice Lacroix</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Component 1: Custom Cursor -->
+    <div id="custom-cursor"></div>
+
+    <!-- Preloader -->
+    <div id="loader">
+        <div class="loader-content">
+            <div class="progress-bar-container">
+                <div id="progress-bar"></div>
+            </div>
+            <div id="loading-text">CARICAMENTO — 0%</div>
+        </div>
+    </div>
+
+    <!-- Component 2: Ticker Marquee -->
+    <div class="ticker-wrapper">
+        <div class="ticker-content">
+            <!-- Testo ripetuto per animazione continua -->
+            <span>IL TEMPO NON MENTE <span class="sep">◆</span> 312 PEZZI. UN SOLO BATTITO <span class="sep">◆</span> ACCIAIO. ZAFFIRO. OSSESSIONE <span class="sep">◆</span> 28.800 vph <span class="sep">◆</span> NON SI CARICA. SI EREDITA <span class="sep">◆</span> MANIFATTURA SVIZZERA <span class="sep">◆</span></span>
+            <span>IL TEMPO NON MENTE <span class="sep">◆</span> 312 PEZZI. UN SOLO BATTITO <span class="sep">◆</span> ACCIAIO. ZAFFIRO. OSSESSIONE <span class="sep">◆</span> 28.800 vph <span class="sep">◆</span> NON SI CARICA. SI EREDITA <span class="sep">◆</span> MANIFATTURA SVIZZERA <span class="sep">◆</span></span>
+        </div>
+    </div>
+
+    <!-- Component 3: Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">AIKON</div>
+            <div class="nav-links">
+                <a href="#manifattura">#manifattura</a>
+                <a href="#movimento">#movimento</a>
+                <a href="#acquista">#acquista</a>
+            </div>
+            <div class="nav-mobile-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Mobile Drawer -->
+    <div class="nav-drawer">
+        <div class="drawer-links">
+            <a href="#manifattura">#manifattura</a>
+            <a href="#movimento">#movimento</a>
+            <a href="#acquista">#acquista</a>
+        </div>
+    </div>
+
+    <!-- Component 4: Hero Canvas Wrapper -->
+    <section class="hero-wrapper" id="hero">
+        <div class="canvas-sticky">
+            <canvas id="watch-canvas"></canvas>
+            
+            <div class="scroll-indicator" id="scroll-indicator">
+                Scorri per scoprire
+                <span class="gold-accent">◆</span>
+            </div>
+
+            <!-- Narrative Beats -->
+            <div class="beats-container">
+                <div class="narrative-beat beat-a" id="beat-a">
+                    <h2>IL TEMPO NON MENTE.</h2>
+                    <p>Costruito per durare. Pensato per stupire.</p>
+                </div>
+
+                <div class="narrative-beat beat-b" id="beat-b">
+                    <h2>312 PEZZI.<br>UN SOLO BATTITO.</h2>
+                    <p>Ingegneria visibile. Artigianalità svizzera.</p>
+                    <div class="micro-tag"><span class="gold-accent">◆</span> Movimento automatico</div>
+                </div>
+
+                <div class="narrative-beat beat-c" id="beat-c">
+                    <h2>ACCIAIO.<br>ZAFFIRO.<br>OSSESSIONE.</h2>
+                    <p>28.800 vibrazioni all'ora. Il tuo polso lo sente.</p>
+                    <div class="micro-tag"><span class="gold-accent">◆</span> 28.800 vph</div>
+                </div>
+
+                <div class="narrative-beat beat-d" id="beat-d">
+                    <h2>NON SI CARICA.<br>SI EREDITA.</h2>
+                    <p>Il tuo prossimo orologio. L'ultimo che compri.</p>
+                    <a href="#acquista" class="cta-button">Scopri il tuo esemplare →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Component 5: Stats Strip -->
+    <section class="stats-strip">
+        <div class="stat-item">
+            <div class="stat-number">192</div>
+            <div class="stat-label">Componenti</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">28.800</div>
+            <div class="stat-label">Vibrazioni/ora</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">100m</div>
+            <div class="stat-label">Impermeabilità</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">72h</div>
+            <div class="stat-label">Riserva di carica</div>
+        </div>
+    </section>
+
+    <!-- Component 6: Slider Manifattura -->
+    <section id="manifattura" class="manifattura-section">
+        <div class="slider-container" id="features-slider">
+            <div class="slider-track" id="features-track">
+                <!-- Injected via JS Factory -->
+            </div>
+        </div>
+        <div class="slider-controls">
+            <div class="slider-dots" id="features-dots"></div>
+        </div>
+    </section>
+
+    <!-- Component 7: Grid Componenti -->
+    <section id="movimento" class="components-section">
+        <div class="components-grid" id="components-grid">
+            <!-- Injected via JS Factory -->
+        </div>
+    </section>
+
+    <!-- Component 8: Pricing -->
+    <section id="acquista" class="pricing-section">
+        <div class="pricing-container">
+            <!-- Configuration 1 -->
+            <div class="pricing-card">
+                <h3>Aikon Automatique</h3>
+                <div class="price">€1.490</div>
+                <ul class="features-list">
+                    <li>Acciaio 316L</li>
+                    <li>Cristallo zaffiro</li>
+                    <li>Impermeabile 100m</li>
+                    <li>Garanzia 2 anni</li>
+                </ul>
+                <button class="pricing-cta secondary-cta">Scopri</button>
+            </div>
+
+            <!-- Configuration 2 -->
+            <div class="pricing-card highlighted">
+                <div class="badge">Pezzo numerato</div>
+                <h3>Aikon Automatique Edizione Speciale</h3>
+                <div class="price">€1.890</div>
+                <ul class="features-list">
+                    <li>Tutto di Automatique</li>
+                    <li>Finitura PVD</li>
+                    <li>Quadrante guilloche esclusivo</li>
+                    <li>Numero inciso</li>
+                    <li>Certificato</li>
+                </ul>
+                <button class="pricing-cta primary-cta">Prenota ora</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Component 9: Footer -->
+    <footer class="site-footer">
+        <div class="footer-top">
+            <div class="footer-logo">AIKON</div>
+            <div class="footer-contact">
+                <a href="mailto:contact@aikon.com">contact@aikon.com</a>
+            </div>
+        </div>
+        
+        <div class="ticker-wrapper footer-ticker">
+            <div class="ticker-content">
+                <span>IL TEMPO NON MENTE <span class="sep">◆</span> MANIFATTURA SVIZZERA <span class="sep">◆</span></span>
+                <span>IL TEMPO NON MENTE <span class="sep">◆</span> MANIFATTURA SVIZZERA <span class="sep">◆</span></span>
+                <span>IL TEMPO NON MENTE <span class="sep">◆</span> MANIFATTURA SVIZZERA <span class="sep">◆</span></span>
+                <span>IL TEMPO NON MENTE <span class="sep">◆</span> MANIFATTURA SVIZZERA <span class="sep">◆</span></span>
+                <span>IL TEMPO NON MENTE <span class="sep">◆</span> MANIFATTURA SVIZZERA <span class="sep">◆</span></span>
+                <span>IL TEMPO NON MENTE <span class="sep">◆</span> MANIFATTURA SVIZZERA <span class="sep">◆</span></span>
+                <span>IL TEMPO NON MENTE <span class="sep">◆</span> MANIFATTURA SVIZZERA <span class="sep">◆</span></span>
+                <span>IL TEMPO NON MENTE <span class="sep">◆</span> MANIFATTURA SVIZZERA <span class="sep">◆</span></span>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="footer-links">
+                <a href="#">Privacy</a>
+                <span class="sep">·</span>
+                <a href="#">Termini</a>
+                <span class="sep">·</span>
+                <span>© 2026</span>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

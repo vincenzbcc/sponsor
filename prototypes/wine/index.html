@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wine Journey | L'eccellenza in 5 tappe</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/MotionPathPlugin.min.js"></script>
+</head>
+<body>
+
+    <!-- Preloader -->
+    <div id="loader">
+        <div class="loader-content">
+            <div class="progress-bar-container">
+                <div id="progress-bar"></div>
+            </div>
+            <div id="loading-text">CHROMA KEY PROCESSING — 0%</div>
+        </div>
+    </div>
+
+    <!-- Hero Title (Fixed) -->
+    <div class="fixed-title" id="main-brand-title">WINE JOURNEY</div>
+
+    <!-- FASE 1: Canvas Scrollytelling (0 -> 400vh) -->
+    <section class="hero-wrapper" id="phase-1">
+        <div class="canvas-sticky">
+            <canvas id="wine-canvas"></canvas>
+
+            <div class="scroll-indicator" id="scroll-indicator">
+                Scorri per degustare
+                <span style="color: var(--gold);">✦</span>
+            </div>
+
+            <!-- Narrative Beats -->
+            <div class="beats-container">
+                <div class="narrative-beat beat-a" id="beat-a">
+                    <h2>IL VINO NASCE QUI.</h2>
+                </div>
+
+                <div class="narrative-beat beat-b" id="beat-b">
+                    <h2>DALLA TERRA AL CALICE.</h2>
+                    <p class="beat-sub">Ogni vendemmia racconta un anno.</p>
+                </div>
+
+                <div class="narrative-beat beat-c" id="beat-c">
+                    <h2>OGNI SORSO HA UNA STORIA.</h2>
+                    <p class="beat-sub">Pazienza, legno, tempo.</p>
+                </div>
+
+                <div class="narrative-beat beat-d" id="beat-d">
+                    <h2>STAPPA IL MOMENTO.</h2>
+                    <a href="#footer" class="cta-button">Scopri il vino →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FASE 2: Main GSAP Scroll Container (SVG Path) -->
+    <div class="scroll-container" id="phase-2">
+        
+        <!-- SVG Path tracing -->
+        <svg id="path-svg" xmlns="http://www.w3.org/2000/svg">
+            <path id="glow-path" fill="none" stroke="rgba(212,175,55,0.08)" stroke-width="6"></path>
+            <path id="trace-path" fill="none" stroke="rgba(212, 175, 55, 0.30)" stroke-width="1.5" stroke-dasharray="6 10"></path>
+        </svg>
+
+        <!-- Moving Bottle DOM Element (Takes over after Canvas) -->
+        <div class="bottle-container" id="bottle">
+            <img src="" alt="Wine Bottle" class="bottle-img" id="bottle-img">
+        </div>
+
+        <!-- 5 Tappe -->
+        <div class="stop-cards">
+            
+            <div class="card card-odd" id="card-1">
+                <div class="label">01/05 — IL TERROIR</div>
+                <h2>LA TERRA SCEGLIE</h2>
+                <p><i>"La terra sceglie il vino prima che la vigna esista. Il carattere di ogni bottiglia inizia nel sottosuolo — nel minerale, nel clima, nel silenzio di un appezzamento."</i></p>
+            </div>
+
+            <div class="card card-even" id="card-2">
+                <div class="label">02/05 — LA VENDEMMIA</div>
+                <h2>IL MOMENTO GIUSTO</h2>
+                <p><i>"Raccogliere al momento giusto è tutto. Un giorno di ritardo o di anticipo cambia il vino per sempre. Il tempo non perdona chi non lo ascolta."</i></p>
+            </div>
+
+            <div class="card card-odd" id="card-3">
+                <div class="label">03/05 — LA FERMENTAZIONE</div>
+                <h2>LA TRASFORMAZIONE</h2>
+                <p><i>"Il mosto non sa ancora cosa diventerà. È il momento più incerto e più vivo — quando la materia si trasforma e l'uva smette di esistere per diventare qualcos'altro."</i></p>
+            </div>
+
+            <div class="card card-even" id="card-4">
+                <div class="label">04/05 — L'INVECCHIAMENTO</div>
+                <h2>LA PAZIENZA</h2>
+                <p><i>"Il legno insegna la pazienza. In cantina non si accelera nulla. Il vino prende il suo tempo perché sa di averne bisogno."</i></p>
+            </div>
+
+            <div class="card card-odd" id="card-5">
+                <div class="label">05/05 — LA BOTTIGLIA</div>
+                <h2>L'ULTIMA PORTA</h2>
+                <p><i>"Il tappo è l'ultima porta. Quello che c'è dentro non cambierà più — è già diventato quello che doveva essere. Ora tocca a te."</i></p>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Keep Scrolling Section -->
+    <section class="keep-scrolling">
+        <div class="ks-label">✦ LE CINQUE TAPPE SONO COMPIUTE ✦</div>
+        <div class="ks-headline">ORA ARRIVA <em>IL MOMENTO</em></div>
+        <div class="ks-sub">"Passa il cursore su ogni riga per fare il tuo brindisi."</div>
+    </section>
+
+    <!-- Clip Section (Hover Effects) -->
+    <section class="clip-section">
+        <div class="hover-text-container">
+            <h1 class="clip-text">
+                <span class="odd">STAPPA</span> &lt;IL MOMENTO&gt;
+            </h1>
+            <h1 class="clip-text">
+                <span class="even">DEGUSTA</span> &lt;L'ECCELLENZA&gt;
+            </h1>
+            <h1 class="clip-text">
+                <span class="odd">SCEGLI</span> &lt;IL TUO VINO&gt;
+            </h1>
+            <h1 class="clip-text">
+                <span class="even">BEVI</span> &lt;SENZA FRETTA&gt;
+            </h1>
+            <h1 class="clip-text">
+                <span class="odd">INIZIA</span> &lt;DA QUI&gt;
+            </h1>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-brand">CHÂTEAU MARGARITA</div>
+        <div class="footer-bottom">
+            <button class="btn-email">INFO@CHATEAUMARGARITA.COM</button>
+            <button class="btn-codepen">VISITA LA CANTINA</button>
+        </div>
+        <div class="outro">
+            <p>✦ OGNI SORSO HA UNA STORIA · OGNI STORIA HA UN VINO · OGNI VINO HA IL SUO TEMPO ✦</p>
+        </div>
+        
+        <!-- Decorative floating elements -->
+        <div class="deco deco-1">✦</div>
+        <div class="deco deco-2">✦</div>
+        <div class="deco deco-3">✦</div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

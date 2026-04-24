@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Placeholder Prototype</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .wireframe-cube {
+            width: 100px;
+            height: 100px;
+            transform-style: preserve-3d;
+            animation: spin 8s linear infinite;
+        }
+        .face {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.05);
+        }
+        .front  { transform: translateZ(50px); }
+        .back   { transform: rotateY(180deg) translateZ(50px); }
+        .right  { transform: rotateY(90deg) translateZ(50px); }
+        .left   { transform: rotateY(-90deg) translateZ(50px); }
+        .top    { transform: rotateX(90deg) translateZ(50px); }
+        .bottom { transform: rotateX(-90deg) translateZ(50px); }
+
+        @keyframes spin {
+            0% { transform: rotateX(0) rotateY(0); }
+            100% { transform: rotateX(360deg) rotateY(360deg); }
+        }
+    </style>
+</head>
+<body class="bg-[#050505] text-white h-screen flex flex-col items-center justify-center overflow-hidden m-0 p-0 font-sans">
+    
+    <div class="perspective-1000 mb-12">
+        <div class="wireframe-cube relative">
+            <div class="face front"></div>
+            <div class="face back"></div>
+            <div class="face right"></div>
+            <div class="face left"></div>
+            <div class="face top"></div>
+            <div class="face bottom"></div>
+        </div>
+    </div>
+
+    <h2 class="text-2xl font-light tracking-[0.3em] uppercase mb-4 text-white/80" id="ph-title">Loading Module...</h2>
+    
+    <div class="w-64 space-y-3">
+        <div class="h-2 bg-white/10 rounded overflow-hidden relative">
+            <div class="absolute top-0 left-0 h-full bg-white/30 w-1/3 animate-[pulse_2s_ease-in-out_infinite_alternate]"></div>
+        </div>
+        <div class="h-2 bg-white/10 rounded overflow-hidden relative">
+            <div class="absolute top-0 left-0 h-full bg-white/20 w-2/3 animate-[pulse_2.5s_ease-in-out_infinite_alternate]"></div>
+        </div>
+        <div class="h-2 bg-white/10 rounded overflow-hidden relative">
+            <div class="absolute top-0 left-0 h-full bg-white/10 w-1/2 animate-[pulse_3s_ease-in-out_infinite_alternate]"></div>
+        </div>
+    </div>
+
+    <script>
+        // Update title based on URL params to simulate different objects
+        const urlParams = new URLSearchParams(window.location.search);
+        const objectType = urlParams.get('type');
+        if (objectType) {
+            document.getElementById('ph-title').innerText = `PROTOTIPO: ${objectType.toUpperCase()}`;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Milkshake Brand Landing Page — CSS Slider, Marquee Ticker &amp; Custom Cursor</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Permanent+Marker&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="./style.css">
+
+  </head>
+    
+  <body>
+  <div class="cursor" id="cursor"></div>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <span class="ticker-word pink">MY</span>
+    <span class="ticker-word yellow">MILKSHAKE</span>
+    <span class="ticker-word cream">BRINGS</span>
+    <span class="ticker-word pink">ALL THE</span>
+    <span class="ticker-word yellow">BOYS</span>
+    <span class="ticker-word cream">TO THE</span>
+    <span class="ticker-word pink">YARD</span>
+    <span class="ticker-sep">✦</span>
+    <span class="ticker-word yellow">MY</span>
+    <span class="ticker-word pink">MILKSHAKE</span>
+    <span class="ticker-word cream">BRINGS</span>
+    <span class="ticker-word yellow">ALL THE</span>
+    <span class="ticker-word pink">BOYS</span>
+    <span class="ticker-word cream">TO THE</span>
+    <span class="ticker-word yellow">YARD</span>
+    <span class="ticker-sep">✦</span>
+    <span class="ticker-word pink">MY</span>
+    <span class="ticker-word yellow">MILKSHAKE</span>
+    <span class="ticker-word cream">BRINGS</span>
+    <span class="ticker-word pink">ALL THE</span>
+    <span class="ticker-word yellow">BOYS</span>
+    <span class="ticker-word cream">TO THE</span>
+    <span class="ticker-word pink">YARD</span>
+    <span class="ticker-sep">✦</span>
+    <span class="ticker-word yellow">MY</span>
+    <span class="ticker-word pink">MILKSHAKE</span>
+    <span class="ticker-word cream">BRINGS</span>
+    <span class="ticker-word yellow">ALL THE</span>
+    <span class="ticker-word pink">BOYS</span>
+    <span class="ticker-word cream">TO THE</span>
+    <span class="ticker-word yellow">YARD</span>
+    <span class="ticker-sep">✦</span>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">SHAKE.YARD 🥤</a>
+  <ul class="nav-links">
+    <li><a href="#shakes">Menu</a></li>
+    <li><a href="#fresh">About</a></li>
+    <li><a href="#" class="cart-link">Add to bag <i class="fa-solid fa-bag-shopping"></i></a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-blob"></div>
+  <div class="hero-blob2"></div>
+
+  <div class="hero-text">
+    <div class="hero-eyebrow">
+      <div class="dot"></div>
+      <span>Now serving • All day every day</span>
+    </div>
+    <h1 class="hero-h1">
+      <span class="pink">MY</span><br>
+      <span>MILK</span><br>
+      <span class="yellow">SHAKE</span>
+    </h1>
+    <p class="hero-sub">Brings all the boys to the yard. Crafted from real fruit. Dangerously good. No notes.</p>
+
+    <div class="hero-pills">
+      <div class="hero-pill active">🍓 Strawberry</div>
+      <div class="hero-pill">🥥 Coconut</div>
+      <div class="hero-pill">🫐 Blueberry</div>
+      <div class="hero-pill">🍌 Banana</div>
+      <div class="hero-pill">🍊 Grapefruit</div>
+    </div>
+
+    <div class="hero-btns">
+      <a href="#shakes" class="btn-hero-primary">Get the drip ↓</a>
+      <a href="#fresh" class="btn-hero-secondary">What's inside?</a>
+    </div>
+
+    <div class="hero-mini-stats">
+      <div class="hms-chip">
+        <div>
+          <div class="hms-val">24g</div>
+          <div class="hms-lbl">Protein</div>
+        </div>
+      </div>
+      <div class="hms-chip">
+        <div>
+          <div class="hms-val">100%</div>
+          <div class="hms-lbl">Real fruit</div>
+        </div>
+      </div>
+      <div class="hms-chip">
+        <div>
+          <div class="hms-val">4.9 ★</div>
+          <div class="hms-lbl">Rating</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-img-wrap">
+    <div class="hero-img-ring">
+      <img src="https://rassweiler-it.de/images/codepen/codepen_shake_strawberry.png" alt="Shake" id="heroShakeImg">
+    </div>
+    <div class="hero-badge">🔥 Iconic</div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-strip">
+  <div class="stat">
+    <div class="stat-num">5</div>
+    <div class="stat-label">Wild flavors</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">100%</div>
+    <div class="stat-label">Real fruit</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">0</div>
+    <div class="stat-label">Artificial stuff</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">∞</div>
+    <div class="stat-label">Boys in the yard</div>
+  </div>
+</div>
+
+<!-- SLIDER -->
+<section class="slider-section" id="shakes">
+  <div class="section-header">
+    <h2>THE<br><em>LINEUP</em></h2>
+    <p>Five flavors, zero regrets. Pick your poison. Or try all of them — we won't judge.</p>
+  </div>
+
+  <div class="slider-viewport" id="sliderViewport">
+    <div class="slider-track" id="sliderTrack">
+      <div class="shake-card card-coconut">
+        <span class="card-chip">Tropical</span>
+        <img src="https://rassweiler-it.de/images/codepen/codepen_shake_1.png" alt="Coconut" class="card-img">
+        <div class="card-bottom">
+          <div class="card-name">Coconut</div>
+          <div class="card-desc">Creamy, nutty, straight-up iconic. Tropical paradise in a cup.</div>
+          <div class="card-footer">
+            <div class="card-price">€4.99</div>
+            <button class="card-btn">ADD +</button>
+          </div>
+        </div>
+      </div>
+      <div class="shake-card card-blueberry">
+        <span class="card-chip">Antioxidant</span>
+        <img src="https://rassweiler-it.de/images/codepen/codepen_shake_2.png" alt="Blueberry" class="card-img">
+        <div class="card-bottom">
+          <div class="card-name">Blueberry</div>
+          <div class="card-desc">Picked at peak ripeness. Tangy, bold, unapologetically purple.</div>
+          <div class="card-footer">
+            <div class="card-price">€4.99</div>
+            <button class="card-btn">ADD +</button>
+          </div>
+        </div>
+      </div>
+      <div class="shake-card card-banana">
+        <span class="card-chip">Classic</span>
+        <img src="https://rassweiler-it.de/images/codepen/codepen_shake_3.png" alt="Banana" class="card-img">
+        <div class="card-bottom">
+          <div class="card-name">Banana</div>
+          <div class="card-desc">Smooth, sweet, and absolutely loaded with potassium. Gym approved.</div>
+          <div class="card-footer">
+            <div class="card-price">€4.99</div>
+            <button class="card-btn">ADD +</button>
+          </div>
+        </div>
+      </div>
+      <div class="shake-card card-grapefruit">
+        <span class="card-chip">Zesty</span>
+        <img src="https://rassweiler-it.de/images/codepen/codepen_shake_4.png" alt="Grapefruit" class="card-img">
+        <div class="card-bottom">
+          <div class="card-name">Grapefruit</div>
+          <div class="card-desc">Not for the faint-hearted. Bright, citrusy, and it slaps hard.</div>
+          <div class="card-footer">
+            <div class="card-price">€4.99</div>
+            <button class="card-btn">ADD +</button>
+          </div>
+        </div>
+      </div>
+      <div class="shake-card card-strawberry">
+        <span class="card-chip">Fan fave ★</span>
+        <img src="https://rassweiler-it.de/images/codepen/codepen_shake_5.png" alt="Strawberry" class="card-img">
+        <div class="card-bottom">
+          <div class="card-name">Strawberry</div>
+          <div class="card-desc">The OG. Sun-ripened, summer vibes. This is the one that started it all.</div>
+          <div class="card-footer">
+            <div class="card-price">€4.99</div>
+            <button class="card-btn">ADD +</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slider-controls">
+    <button class="ctrl-btn" id="prevBtn"><i class="fa-solid fa-arrow-left"></i></button>
+    <button class="ctrl-btn" id="nextBtn"><i class="fa-solid fa-arrow-right"></i></button>
+    <div class="slider-dots" id="sliderDots"></div>
+  </div>
+</section>
+
+<!-- INGREDIENTS -->
+<section class="ingredients-section" id="fresh">
+  <div class="section-header" style="max-width:1000px;margin:0 auto;">
+    <h2>ONLY THE<br><em>FRESHEST</em></h2>
+    <p>We didn't cut corners. Every fruit is hand-picked, and we dare you to taste the difference.</p>
+  </div>
+
+  <div class="ingredients-grid">
+    <div class="ing-card c1">
+      <div class="ing-img-wrap"><img src="https://rassweiler-it.de/images/codepen/codepen_ingredients_1.png" class="ing-img" alt="Coconut"></div>
+      <div class="ing-num">01 —</div>
+      <div class="ing-name">Coconut</div>
+      <div class="ing-desc">Cracked fresh from tropical paradises. Creamy, nutty, obsession-worthy.</div>
+    </div>
+    <div class="ing-card c2">
+      <div class="ing-img-wrap"><img src="https://rassweiler-it.de/images/codepen/codepen_ingredients_2.png" class="ing-img" alt="Blueberry"></div>
+      <div class="ing-num">02 —</div>
+      <div class="ing-name">Blueberry</div>
+      <div class="ing-desc">Plump, antioxidant-packed, peak ripeness. Bold flavor every time.</div>
+    </div>
+    <div class="ing-card c3">
+      <div class="ing-img-wrap"><img src="https://rassweiler-it.de/images/codepen/codepen_ingredients_3.png" class="ing-img" alt="Banana"></div>
+      <div class="ing-num">03 —</div>
+      <div class="ing-name">Banana</div>
+      <div class="ing-desc">Naturally sweet & smooth. The gym-bro's secret weapon.</div>
+    </div>
+    <div class="ing-card c4">
+      <div class="ing-img-wrap"><img src="https://rassweiler-it.de/images/codepen/codepen_ingredients_4.png" class="ing-img" alt="Grapefruit"></div>
+      <div class="ing-num">04 —</div>
+      <div class="ing-name">Grapefruit</div>
+      <div class="ing-desc">Hand-picked citrus. Bright, invigorating, no cap.</div>
+    </div>
+    <div class="ing-card c5">
+      <div class="ing-img-wrap"><img src="https://rassweiler-it.de/images/codepen/codepen_ingredients_5.png" class="ing-img" alt="Strawberry"></div>
+      <div class="ing-num">05 —</div>
+      <div class="ing-name">Strawberry</div>
+      <div class="ing-desc">Sun-ripened. The GOAT fruit. It's giving summer forever.</div>
+    </div>
+    <div class="ing-card c6" style="display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center;padding-top:36px;">
+      <div style="font-family:'Permanent Marker',cursive;font-size:1.3rem;color:var(--cream);margin-bottom:12px;">And it's<br>damn<br>good 🔥</div>
+      <a href="#shakes" style="color:var(--hot-pink);font-size:0.72rem;letter-spacing:0.15em;text-decoration:none;text-transform:uppercase;border-bottom:1px solid var(--hot-pink);padding-bottom:2px;">Shop the menu →</a>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="newsletter">
+  <div class="newsletter-inner">
+    <div class="nl-left">
+      <div class="nl-tag">🥤 Join the yard</div>
+      <h2>GET THE<br>DISCOUNT.<br>SLAY.</h2>
+      <div class="nl-proof">
+        <div class="nl-avatars">
+          <!-- Fixed avatars: clean CSS circles with initials, no broken emojis -->
+          <div class="nl-avatar av1">S</div>
+          <div class="nl-avatar av2">M</div>
+          <div class="nl-avatar av3">J</div>
+          <div class="nl-avatar av4">K</div>
+        </div>
+        <div class="nl-proof-text">
+          <strong>2,847 shake addicts</strong>
+          already in the yard
+        </div>
+      </div>
+    </div>
+    <div class="nl-right">
+      <div class="nl-perks">
+        <div class="nl-perk">
+          <div class="nl-perk-icon">🎁</div>
+          <span>10% off your first order — instantly</span>
+        </div>
+        <div class="nl-perk">
+          <div class="nl-perk-icon">🔥</div>
+          <span>Early access to new drops & limited flavors</span>
+        </div>
+        <div class="nl-perk">
+          <div class="nl-perk-icon">🚫</div>
+          <span>Zero spam. Unsubscribe whenever. No hard feelings.</span>
+        </div>
+      </div>
+      <div class="nl-form">
+        <input type="email" class="nl-input" placeholder="your@email.com">
+        <button class="nl-btn">I'M IN ↗</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LIFESTYLE -->
+<section class="lifestyle">
+  <div class="lifestyle-inner">
+    <div class="lifestyle-img-wrap">
+      <div class="lifestyle-img-frame">
+        <img src="https://rassweiler-it.de/images/codepen/codepen_shake_lifestyle.png" alt="Shake lifestyle">
+      </div>
+      <div class="ls-badge">Post-Workout ✓</div>
+    </div>
+    <div class="lifestyle-content">
+      <div class="ls-kicker">shake as part of your day</div>
+      <h2 class="ls-title">REFUEL.<br>RECOVER.<br>REPEAT.</h2>
+      <p class="ls-copy">Our shakes are built for your actual life — post-gym, pre-work, mid-existential-crisis. Protein-packed, naturally flavored, and absolutely slaps.</p>
+      <ul class="ls-features">
+        <li>
+          <div class="ls-dot"></div><strong>High protein</strong> — supports recovery fr fr
+        </li>
+        <li>
+          <div class="ls-dot"></div><strong>All natural</strong> — no weird stuff, no cap
+        </li>
+        <li>
+          <div class="ls-dot"></div><strong>Easy to take</strong> — fits your whole vibe
+        </li>
+      </ul>
+      <div class="ls-btns">
+        <a href="#shakes" class="ls-btn-p">Shop shakes</a>
+        <a href="#fresh" class="ls-btn-s">View recipes</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+
+    <!-- Logo + role label -->
+    <div class="footer-logo-wrap">
+      <a href="#" class="footer-logo-text">SHAKE.YARD 🥤</a>
+      <span class="footer-dev-label">Frontend &amp; Dev</span>
+    </div>
+
+    <!-- Legal links + year -->
+    <div class="footer-links">
+      <a href="#">Imprint</a>
+      <a href="#">Data Policy</a>
+      <a href="#">© 2026</a>
+    </div>
+
+    <!-- Visible contact buttons: CodePen + Email only -->
+    <div class="footer-contact">
+      <a href="https://codepen.io/Margarita-the-solid/" class="footer-contact-btn btn-codepen" title="CodePen" target="_blank" rel="noopener">
+        <i class="fa-brands fa-codepen"></i> CodePen
+      </a>
+      <a href="mailto:isitritarita@gmail.com" class="footer-contact-btn btn-email" title="Send email">
+        <i class="fa-regular fa-envelope"></i> isitritarita@gmail.com
+      </a>
+    </div>
+
+  </div>
+</footer>
+    <script  src="./script.js"></script>
+
+  </body>
+  
+</html>

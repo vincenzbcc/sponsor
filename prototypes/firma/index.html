@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FIRMA | Macchina da Caffè</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Preloader -->
+    <div id="loader">
+        <div class="loader-content">
+            <div class="progress-bar-container">
+                <div id="progress-bar"></div>
+            </div>
+            <div id="loading-text">PREPARAZIONE — 0%</div>
+        </div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">FIRMA</div>
+            <div class="nav-links">
+                <a href="#tecnologia">#tecnologia</a>
+                <a href="#sistema">#sistema</a>
+                <a href="#acquista">#acquista</a>
+            </div>
+            <div class="nav-mobile-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Canvas Wrapper -->
+    <section class="hero-wrapper" id="hero">
+        <div class="canvas-sticky">
+            <canvas id="product-canvas"></canvas>
+            
+            <div class="scroll-indicator" id="scroll-indicator">
+                Scorri per scoprire
+                <span class="gold-accent">◆</span>
+            </div>
+
+            <!-- Narrative Beats -->
+            <div class="beats-container">
+                <div class="narrative-beat beat-a" id="beat-a">
+                    <h2>IL CAFFÈ PERFETTO.</h2>
+                    <p>Ogni mattina. Ogni tazza. Senza compromessi.</p>
+                </div>
+
+                <div class="narrative-beat beat-b" id="beat-b">
+                    <h2>TECNOLOGIA INVISIBILE.</h2>
+                    <p>Pompa a 19 bar. Thermoblock istantaneo. Pronta in 30 secondi.</p>
+                    <div class="micro-tag"><span class="gold-accent">◆</span> Sistema a capsule</div>
+                </div>
+
+                <div class="narrative-beat beat-c" id="beat-c">
+                    <h2>8 BEVANDE.<br>UN SOLO GESTO.</h2>
+                    <p>Espresso, cappuccino, lungo, americano. Il pannello touch sa già cosa vuoi.</p>
+                    <div class="micro-tag"><span class="gold-accent">◆</span> Pannello touch intelligente</div>
+                </div>
+
+                <div class="narrative-beat beat-d" id="beat-d">
+                    <h2>VERSALA.<br>ASSAPORALA.</h2>
+                    <p>La macchina che trasforma ogni pausa in un momento.</p>
+                    <a href="#acquista" class="cta-button">Ordina ora →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <div class="wrap">
+        <section id="tecnologia" class="ctrl-group">
+            <h2 class="section-title">Dentro ogni tazza</h2>
+            <div class="divider"></div>
+            <div class="features-grid" id="features-grid">
+                <!-- Injected via JS Factory -->
+            </div>
+        </section>
+
+        <!-- Pricing Section -->
+        <section id="acquista" class="ctrl-group">
+            <h2 class="section-title">Scegli il tuo rituale</h2>
+            <div class="divider"></div>
+
+            <div class="pricing-grid">
+                <!-- Starter -->
+                <div class="ctrl-group" style="background: var(--surface-2);">
+                    <div class="ctrl-label">FIRMA Starter</div>
+                    <div class="price-value">€149</div>
+                    <ul class="features-list" style="margin-top: 1rem; flex-grow: 1;">
+                        <li>Pannello touch 8 bevande</li>
+                        <li>Thermoblock 30s</li>
+                        <li>Pompa 19 bar</li>
+                        <li>Serbatoio 1,1L</li>
+                    </ul>
+                    <button class="copy-btn">Acquista ora</button>
+                </div>
+
+                <!-- Pro -->
+                <div class="ctrl-group" style="border-color: var(--border-strong); background: var(--surface-2);">
+                    <div class="ctrl-label" style="color: var(--accent-hi);">FIRMA Pro (Più venduta)</div>
+                    <div class="price-value">€149 <span style="font-size: 1rem; color: var(--fg-3); font-family: var(--font-mono);">+ 9,99€/mese</span></div>
+                    <ul class="features-list" style="margin-top: 1rem; flex-grow: 1;">
+                        <li>Tutto di Starter</li>
+                        <li>Capsule premium mensili</li>
+                        <li>Manutenzione inclusa</li>
+                        <li>Supporto prioritario</li>
+                        <li>Garanzia estesa 3 anni</li>
+                    </ul>
+                    <button class="copy-btn primary">Inizia con Pro</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-logo">FIRMA</div>
+        <div class="footer-links">
+            <a href="#">Privacy</a>
+            <span style="margin: 0 1rem; color: var(--border-strong);">·</span>
+            <a href="#">Termini</a>
+            <span style="margin: 0 1rem; color: var(--border-strong);">·</span>
+            <span>© 2026</span>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
