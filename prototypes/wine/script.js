@@ -47,54 +47,59 @@ const WineEngine = (() => {
     const tolerance = 32; // Conservativo per preservare i riflessi del vetro
 
     const processImageChromaKey = (img) => {
-        // Usa OffscreenCanvas se supportato, altrimenti un normale canvas nascosto
-        let oc, octx;
-        if (typeof OffscreenCanvas !== 'undefined') {
-            oc = new OffscreenCanvas(img.width, img.height);
-            octx = oc.getContext('2d', { willReadFrequently: true });
-        } else {
-            oc = document.createElement('canvas');
-            oc.width = img.width;
-            oc.height = img.height;
-            octx = oc.getContext('2d', { willReadFrequently: true });
-        }
-        
-        octx.drawImage(img, 0, 0);
-        const imageData = octx.getImageData(0, 0, img.width, img.height);
-        const data = imageData.data;
-        
-        for (let i = 0; i < data.length; i += 4) {
-            let r = data[i];
-            let g = data[i + 1];
-            let b = data[i + 2];
-            
-            let diffR = Math.abs(r - targetColor.r);
-            let diffG = Math.abs(g - targetColor.g);
-            let diffB = Math.abs(b - targetColor.b);
-            
-            if (diffR < tolerance && diffG < tolerance && diffB < tolerance) {
-                // Calcola quanto siamo lontani dal colore puro
-                let maxDiff = Math.max(diffR, diffG, diffB);
-                
-                // Mappatura Alpha morbida:
-                // Se maxDiff == 0 (colore perfetto), alpha = 0
-                // Se maxDiff == tolerance, alpha = 255
-                // Usiamo una curva per ammorbidire il bordo senza mangiare troppo vetro
-                let alphaRatio = maxDiff / tolerance;
-                let alpha = Math.min(255, Math.pow(alphaRatio, 1.5) * 255);
-                
-                // Applica l'alpha
-                data[i + 3] = alpha;
+        try {
+            // Usa OffscreenCanvas se supportato, altrimenti un normale canvas nascosto
+            let oc, octx;
+            if (typeof OffscreenCanvas !== 'undefined') {
+                oc = new OffscreenCanvas(img.width, img.height);
+                octx = oc.getContext('2d', { willReadFrequently: true });
+            } else {
+                oc = document.createElement('canvas');
+                oc.width = img.width;
+                oc.height = img.height;
+                octx = oc.getContext('2d', { willReadFrequently: true });
             }
-        }
-        
-        octx.putImageData(imageData, 0, 0);
-        
-        // Estrai il bitmap se possibile per alte performance GPU
-        if (oc.transferToImageBitmap) {
-            return oc.transferToImageBitmap();
-        } else {
-            return oc; // Fallback al canvas classico
+            
+            octx.drawImage(img, 0, 0);
+            const imageData = octx.getImageData(0, 0, img.width, img.height);
+            const data = imageData.data;
+            
+            for (let i = 0; i < data.length; i += 4) {
+                let r = data[i];
+                let g = data[i + 1];
+                let b = data[i + 2];
+                
+                let diffR = Math.abs(r - targetColor.r);
+                let diffG = Math.abs(g - targetColor.g);
+                let diffB = Math.abs(b - targetColor.b);
+                
+                if (diffR < tolerance && diffG < tolerance && diffB < tolerance) {
+                    // Calcola quanto siamo lontani dal colore puro
+                    let maxDiff = Math.max(diffR, diffG, diffB);
+                    
+                    // Mappatura Alpha morbida:
+                    // Se maxDiff == 0 (colore perfetto), alpha = 0
+                    // Se maxDiff == tolerance, alpha = 255
+                    // Usiamo una curva per ammorbidire il bordo senza mangiare troppo vetro
+                    let alphaRatio = maxDiff / tolerance;
+                    let alpha = Math.min(255, Math.pow(alphaRatio, 1.5) * 255);
+                    
+                    // Applica l'alpha
+                    data[i + 3] = alpha;
+                }
+            }
+            
+            octx.putImageData(imageData, 0, 0);
+            
+            // Estrai il bitmap se possibile per alte performance GPU
+            if (oc.transferToImageBitmap) {
+                return oc.transferToImageBitmap();
+            } else {
+                return oc; // Fallback al canvas classico
+            }
+        } catch (err) {
+            // Fallback on file:// protocol where getImageData is blocked by tainted canvas security policy
+            return img;
         }
     };
 
@@ -297,12 +302,21 @@ const WineEngine = (() => {
         // Usa l'ultimo frame del Canvas come sorgente per l'img DOM
         // Questo garantisce una transizione senza stacchi grafici (il chroma key c'è già!)
         // Trick: dipingiamo l'ultimo frame processato su un canvas temporaneo ed estraiamo l'URL base64
-        const tempCanvas = document.createElement('canvas');
-        tempCanvas.width = frameCache[191].width;
-        tempCanvas.height = frameCache[191].height;
-        const tcCtx = tempCanvas.getContext('2d');
-        tcCtx.drawImage(frameCache[191], 0, 0);
-        domBottleImg.src = tempCanvas.toDataURL();
+        try {
+            const lastFrame = frameCache[191];
+            if (lastFrame) {
+                const tempCanvas = document.createElement('canvas');
+                tempCanvas.width = lastFrame.width;
+                tempCanvas.height = lastFrame.height;
+                const tcCtx = tempCanvas.getContext('2d');
+                tcCtx.drawImage(lastFrame, 0, 0);
+                domBottleImg.src = tempCanvas.toDataURL();
+            } else {
+                domBottleImg.src = 'frames/frame_191_delay-0.04s.jpg';
+            }
+        } catch (err) {
+            domBottleImg.src = 'frames/frame_191_delay-0.04s.jpg';
+        }
         
         // Transizione Scale (1.8 -> 0.6) gestita da GSAP
         // Il CSS di base ha domBottleWrapper nascosto (opacity 0)

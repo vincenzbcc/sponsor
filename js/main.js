@@ -1,6 +1,3 @@
-import PortalEngine from './PortalEngine.js';
-import UIFactory from './UIFactory.js';
-
 document.addEventListener('DOMContentLoaded', () => {
     // Initialize Portal Controls
     UIFactory.createSidebarControls('lab-controls');

@@ -1,5 +1,3 @@
-import ProductRepository from './ProductRepository.js';
-
 const PortalEngine = (() => {
     let instance;
 
@@ -15,13 +13,19 @@ const PortalEngine = (() => {
                 portalFrame.style.opacity = '0';
                 
                 setTimeout(() => {
-                    portalFrame.src = product.url;
-                    if(portalTitle) portalTitle.innerText = product.name;
-                    if(portalCategory) portalCategory.innerText = product.category;
-                    
-                    portalFrame.onload = () => {
+                    if (portalTitle) portalTitle.innerText = product.name;
+                    if (portalCategory) portalCategory.innerText = product.category;
+
+                    const revealFrame = () => {
                         portalFrame.style.opacity = '1';
                     };
+
+                    // Attach onload before setting src to avoid race conditions on cached loads
+                    portalFrame.onload = revealFrame;
+                    portalFrame.src = product.url;
+
+                    // Fallback in case onload is delayed or suppressed
+                    setTimeout(revealFrame, 1500);
                 }, 300);
             }
         };
@@ -46,5 +50,3 @@ const PortalEngine = (() => {
         }
     };
 })();
-
-export default PortalEngine;

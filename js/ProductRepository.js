@@ -43,5 +43,3 @@ const ProductRepository = (() => {
         getAllProducts: () => Object.values(products)
     };
 })();
-
-export default ProductRepository;

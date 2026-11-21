@@ -140,26 +140,32 @@ const CanvasEngine = (() => {
 
         // Preload Images
         const preload = () => {
+            const handleFrameDone = () => {
+                loadedCount++;
+                const percent = Math.floor((loadedCount / framesArr.length) * 100);
+                progressBar.style.width = percent + '%';
+                loadingText.innerText = `CARICAMENTO — ${percent}%`;
+
+                if (loadedCount === framesArr.length) {
+                    setTimeout(() => {
+                        loader.style.opacity = '0';
+                        setTimeout(() => {
+                            loader.style.display = 'none';
+                            resizeCanvas();
+                            startAnimation();
+                        }, 1000);
+                    }, 500);
+                }
+            };
+
             framesArr.forEach((src, index) => {
                 const img = new Image();
-                img.src = src;
-                img.onload = () => {
-                    loadedCount++;
-                    const percent = Math.floor((loadedCount / framesArr.length) * 100);
-                    progressBar.style.width = percent + '%';
-                    loadingText.innerText = `CARICAMENTO — ${percent}%`;
-
-                    if (loadedCount === framesArr.length) {
-                        setTimeout(() => {
-                            loader.style.opacity = '0';
-                            setTimeout(() => {
-                                loader.style.display = 'none';
-                                resizeCanvas();
-                                startAnimation();
-                            }, 1000);
-                        }, 500);
-                    }
+                img.onload = handleFrameDone;
+                img.onerror = () => {
+                    console.warn('Failed to load frame:', src);
+                    handleFrameDone();
                 };
+                img.src = src;
                 images[index] = img;
             });
         };

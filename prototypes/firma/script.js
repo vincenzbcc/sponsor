@@ -121,26 +121,32 @@ const CanvasEngine = (() => {
 
         // Preload images
         const preload = () => {
+            const handleFrameDone = () => {
+                loadedImages++;
+                const progress = (loadedImages / frameUrls.length) * 100;
+                progressBar.style.width = `${progress}%`;
+                document.getElementById('loading-text').innerText = `PREPARAZIONE — ${Math.round(progress)}%`;
+                
+                if (loadedImages === frameUrls.length) {
+                    setTimeout(() => {
+                        loader.style.opacity = '0';
+                        setTimeout(() => {
+                            loader.style.display = 'none';
+                            resize();
+                            renderLoop();
+                        }, 1000);
+                    }, 500);
+                }
+            };
+
             for (let i = 0; i < frameUrls.length; i++) {
                 const img = new Image();
-                img.src = frameUrls[i];
-                img.onload = () => {
-                    loadedImages++;
-                    const progress = (loadedImages / frameUrls.length) * 100;
-                    progressBar.style.width = `${progress}%`;
-                    document.getElementById('loading-text').innerText = `PREPARAZIONE — ${Math.round(progress)}%`;
-                    
-                    if (loadedImages === frameUrls.length) {
-                        setTimeout(() => {
-                            loader.style.opacity = '0';
-                            setTimeout(() => {
-                                loader.style.display = 'none';
-                                resize();
-                                renderLoop();
-                            }, 1000);
-                        }, 500);
-                    }
+                img.onload = handleFrameDone;
+                img.onerror = () => {
+                    console.warn('Failed to load frame:', frameUrls[i]);
+                    handleFrameDone();
                 };
+                img.src = frameUrls[i];
                 images[i] = img;
             }
         };
