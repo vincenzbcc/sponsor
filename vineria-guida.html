@@ -1,0 +1,40 @@
+<!doctype html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Cantina Vespera · Visita guidata</title><link rel="stylesheet" href="barberia-guida.css"><link rel="stylesheet" href="vineria-guida.css"><script src="vineria-guida.js" defer></script><script src="guida-schermo.js?v=2" defer></script>
+<script src="wine-admin.js" defer></script>
+</head><body>
+<header class="guide-top"><a id="guide-back" href="index.html">← Vetrina</a><span>PROGETTO 01 / SITI PER ATTIVITÀ</span><strong id="view-label">VISTA VISITATORE</strong></header>
+<main id="tour-stage">
+<section id="cliente" class="tour is-active" aria-label="Visita alla cantina"><aside class="story">
+<p class="eyebrow">01 / PRESENTAZIONE DELLA CANTINA</p><h1>Cantina Vespera</h1><h2>La storia vista dal visitatore</h2>
+<p>Questo prototipo accompagna il visitatore dalla famiglia e dalla vigna fino al vino e ai contatti. Il progetto è un esempio: grafica, ritmo, contenuti e funzioni possono essere ripensati intorno all’identità della singola attività.</p>
+<div class="live-card" aria-live="polite"><span class="eyebrow">STAI ESPLORANDO</span><h3 id="wine-client-title">La prima impressione</h3><p id="wine-client-text">L’apertura presenta il nome, il paesaggio e una storia di famiglia. Usa il menu o scorri nell’anteprima per scoprire il percorso.</p></div>
+<details><summary>Cosa può offrire questo modello?</summary><p>Racconto del marchio, luoghi, prodotti, immagini, percorsi di degustazione e contatti. Si possono aggiungere prenotazioni di visite, richieste commerciali o vendita online se l’attività lo desidera. Queste integrazioni non fanno parte del prototipo attuale.</p></details>
+<details><summary>A quali attività può adattarsi?</summary><p>Agriturismi, frantoi, birrifici artigianali, caseifici, aziende agricole, piccoli musei e laboratori possono usare una struttura narrativa simile, con immagini, prodotti, esperienze e contatti propri.</p></details>
+<p class="demo-note">Il modulo contatti è dimostrativo: non invia messaggi. Questa anteprima non contiene account, ordini o prenotazioni reali.</p>
+</aside><div class="demo-pane"><div class="pane-head">
+          <button type="button" data-switch="admin">Admin</button>
+          <button type="button" data-reload="client">Ricomincia</button>
+          <button type="button" data-expand>Schermo intero</button>
+        </div><iframe id="client-frame" title="Sito Cantina Vespera" src="prototypes/wine/index.html" sandbox="allow-scripts allow-same-origin allow-forms"></iframe></div></section>
+<section id="amministrazione" class="tour admin-tour" aria-label="Area amministrativa"><aside class="story"><p class="eyebrow">02 / AREA AMMINISTRATIVA</p><h1>Area admin</h1><p>L’area admin riunisce tour, scorte, notifiche e contenuti. Usa dati di esempio e ripristina le modifiche con «Ricomincia».</p>
+<div class="live-card" aria-live="polite"><span class="eyebrow">STAI ESPLORANDO</span><h3 id="wine-admin-title">Panoramica</h3><p id="wine-admin-text">Una futura area interna potrebbe riunire messaggi, richieste di visita, prodotti e contenuti editoriali. Si realizzerebbero solo le funzioni utili alla cantina.</p></div>
+<details><summary>Come funzionerebbe davvero?</summary><p>Con account e permessi dedicati, il team potrebbe gestire richieste di degustazione, disponibilità delle visite e catalogo. Notifiche email e pagamenti richiederebbero servizi collegati, definiti insieme al titolare.</p></details><p class="demo-note">Prova a confermare un tour, aggiornare le scorte o leggere un avviso. Le azioni si riflettono nei contatori della demo.</p></aside>
+<div class="demo-pane"><div class="pane-head">
+          <button type="button" data-switch="client">Visitatore</button>
+          <button type="button" data-reload="admin">Ricomincia</button>
+          <button type="button" data-expand>Schermo intero</button>
+        </div><div class="wine-admin-mock" id="wine-admin-mock">
+    <header>
+      <small>CANTINA VESPERA · DATI DEMO</small>
+      <h2>Area amministrativa</h2>
+      <p id="wine-admin-summary"></p>
+    </header>
+    <nav class="wine-admin-cards" aria-label="Sezioni amministrative">
+      <button type="button" data-topic="visite">Tour</button>
+      <button type="button" data-topic="vini">Inventario</button>
+      <button type="button" data-topic="messaggi">Notifiche</button>
+      <button type="button" data-topic="contenuti">Contenuti</button>
+    </nav>
+    <section id="wine-admin-detail" aria-label="Sezione selezionata"></section>
+    <p id="wine-admin-status" role="status"></p>
+  </div></div></section>
+</main><div id="tour-curtain" aria-hidden="true"></div></body></html>

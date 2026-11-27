@@ -5,14 +5,17 @@ const PortalEngine = (() => {
         const portalFrame = document.getElementById('portal-frame');
         const portalTitle = document.getElementById('portal-title');
         const portalCategory = document.getElementById('portal-category');
+        let currentProduct = null;
 
         const loadProduct = (productId) => {
             const product = ProductRepository.getProduct(productId);
             if (product && portalFrame) {
+                currentProduct = product;
                 // Add loading effect
                 portalFrame.style.opacity = '0';
                 
                 setTimeout(() => {
+                    if (currentProduct !== product) return;
                     if (portalTitle) portalTitle.innerText = product.name;
                     if (portalCategory) portalCategory.innerText = product.category;
 
@@ -37,7 +40,8 @@ const PortalEngine = (() => {
         // but modern browsers handle iframe scrolling well if the mouse is inside.
         
         return {
-            loadProduct
+            loadProduct,
+            getCurrentProduct: () => currentProduct
         };
     }
 

@@ -1,0 +1,158 @@
+/* Animazioni di comparsa semplici e delicate (solo CSS).
+   Usano fill-mode "backwards": a fine animazione restituiscono il controllo
+   agli stili esistenti, quindi hover e transizioni restano invariati. */
+
+:root {
+  --anim-ease: cubic-bezier(0.22, 0.8, 0.3, 1);
+  --anim-dur: 0.6s;
+}
+
+@keyframes a-fade-up {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes a-fade-down {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes a-from-left {
+  from { opacity: 0; transform: translateX(-26px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes a-from-right {
+  from { opacity: 0; transform: translateX(26px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes a-pop {
+  from { opacity: 0; transform: scale(0.92); }
+  to   { opacity: 1; transform: scale(1); }
+}
+@keyframes a-fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes a-line {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+/* ---------- Benvenuto ---------- */
+body[data-screen="welcome"] .welcome-logo {
+  animation: a-pop 1s var(--anim-ease) 0.1s backwards;
+}
+body[data-screen="welcome"] #enter span {
+  display: inline-block;
+  animation: a-fade-up 0.8s var(--anim-ease) 0.7s backwards;
+}
+
+/* ---------- Barra superiore ---------- */
+body:not([data-screen="welcome"]) .brand-mini {
+  animation: a-from-left 0.7s var(--anim-ease) 0.15s backwards;
+}
+body:not([data-screen="welcome"]) .scene-pill {
+  animation: a-from-right 0.7s var(--anim-ease) 0.25s backwards;
+}
+
+/* ---------- Menu centrale ---------- */
+body[data-screen="menu"] .nav-wing.left  { animation: a-from-left 0.7s var(--anim-ease) 0.1s backwards; }
+body[data-screen="menu"] .nav-wing.right { animation: a-from-right 0.7s var(--anim-ease) 0.2s backwards; }
+body[data-screen="menu"] .wing-title { animation: a-fade-up 0.6s var(--anim-ease) 0.35s backwards; }
+body[data-screen="menu"] .wing-sub   { animation: a-fade-up 0.6s var(--anim-ease) 0.5s backwards; }
+
+/* ---------- Intestazioni dei pannelli (tutte) ---------- */
+body[data-screen="sinistra"] #s-sinistra .card-panel {
+  animation: a-fade-up 0.6s var(--anim-ease) backwards;
+}
+body[data-screen="sinistra"] .booking-header h2,
+body[data-screen="destra"] .catalog .booking-header h2 {
+  animation: a-from-left 0.6s var(--anim-ease) 0.12s backwards;
+}
+body[data-screen="sinistra"] .booking-header p,
+body[data-screen="destra"] .catalog .booking-header p {
+  animation: a-fade-up 0.6s var(--anim-ease) 0.24s backwards;
+}
+body[data-screen="sinistra"] .booking-header .booking-link,
+body[data-screen="destra"] .catalog .booking-header .booking-link {
+  animation: a-from-right 0.6s var(--anim-ease) 0.2s backwards;
+}
+
+/* ---------- Pannello Tagli & barbieri ---------- */
+body[data-screen="sinistra"] .booking-column > h3,
+body[data-screen="sinistra"] .booking-schedule h4 {
+  animation: a-fade-up 0.55s var(--anim-ease) 0.3s backwards;
+}
+body[data-screen="sinistra"] #barber-options > * {
+  animation: a-fade-up 0.55s var(--anim-ease) backwards;
+}
+body[data-screen="sinistra"] #barber-options > *:nth-child(1) { animation-delay: 0.35s; }
+body[data-screen="sinistra"] #barber-options > *:nth-child(2) { animation-delay: 0.45s; }
+body[data-screen="sinistra"] #barber-options > *:nth-child(3) { animation-delay: 0.55s; }
+body[data-screen="sinistra"] #barber-options > *:nth-child(4) { animation-delay: 0.65s; }
+
+.booking-bios > div,
+.booking-photo-window,
+.booking-photo-controls,
+#booking-service-field,
+.booking-calendar,
+#booking-search {
+  animation: a-fade-up 0.55s var(--anim-ease) backwards;
+}
+.calendar-days > * { animation: a-fade 0.4s ease backwards; }
+.calendar-days > *:nth-child(-n+7)  { animation-delay: 0.02s; }
+.calendar-days > *:nth-child(n+8):nth-child(-n+14)  { animation-delay: 0.06s; }
+.calendar-days > *:nth-child(n+15):nth-child(-n+21) { animation-delay: 0.10s; }
+.calendar-days > *:nth-child(n+22) { animation-delay: 0.14s; }
+
+#booking-choices > * { animation: a-pop 0.45s var(--anim-ease) backwards; }
+#booking-choices > *:nth-child(1) { animation-delay: 0.02s; }
+#booking-choices > *:nth-child(2) { animation-delay: 0.06s; }
+#booking-choices > *:nth-child(3) { animation-delay: 0.10s; }
+#booking-choices > *:nth-child(4) { animation-delay: 0.14s; }
+#booking-choices > *:nth-child(5) { animation-delay: 0.18s; }
+#booking-choices > *:nth-child(6) { animation-delay: 0.22s; }
+#booking-choices > *:nth-child(7) { animation-delay: 0.26s; }
+#booking-choices > *:nth-child(8) { animation-delay: 0.30s; }
+#booking-choices > *:nth-child(n+9) { animation-delay: 0.34s; }
+
+#booking-status:not(:empty),
+#cart-confirmation:not(:empty),
+#account-message:not(:empty) {
+  animation: a-fade-up 0.5s var(--anim-ease) backwards;
+}
+
+/* ---------- Pannello Merch & prodotti ---------- */
+body[data-screen="destra"] .catalog-categories button {
+  animation: a-fade-up 0.5s var(--anim-ease) backwards;
+}
+body[data-screen="destra"] .catalog-categories button:nth-child(1) { animation-delay: 0.30s; }
+body[data-screen="destra"] .catalog-categories button:nth-child(2) { animation-delay: 0.38s; }
+body[data-screen="destra"] .catalog-categories button:nth-child(3) { animation-delay: 0.46s; }
+body[data-screen="destra"] #cart-toggle { animation: a-fade-up 0.5s var(--anim-ease) 0.55s backwards; }
+
+body[data-screen="destra"] .product-row { animation: a-fade-up 0.6s var(--anim-ease) backwards; }
+body[data-screen="destra"] .product-row:nth-child(1) { animation-delay: 0.35s; }
+body[data-screen="destra"] .product-row:nth-child(2) { animation-delay: 0.45s; }
+body[data-screen="destra"] .product-row:nth-child(3) { animation-delay: 0.55s; }
+body[data-screen="destra"] .product-row:nth-child(4) { animation-delay: 0.65s; }
+body[data-screen="destra"] .product-row:nth-child(n+5) { animation-delay: 0.75s; }
+body[data-screen="destra"] .product-image { animation: a-pop 0.7s var(--anim-ease) 0.5s backwards; }
+
+.catalog-cart:not([hidden]) { animation: a-fade-down 0.4s var(--anim-ease) backwards; }
+.catalog-cart li { animation: a-from-left 0.4s var(--anim-ease) backwards; }
+
+/* ---------- Finestre (account, privacy, cookie) ---------- */
+dialog.site-dialog[open] { animation: a-pop 0.35s var(--anim-ease) backwards; }
+dialog.site-dialog[open]::backdrop { animation: a-fade 0.35s ease backwards; }
+
+/* ---------- Piè di pagina ---------- */
+body:not([data-screen="welcome"]) .site-footer {
+  animation: a-fade 0.8s ease 0.6s backwards;
+}
+
+/* ---------- Rispetto per chi riduce il movimento ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0s !important;
+  }
+}

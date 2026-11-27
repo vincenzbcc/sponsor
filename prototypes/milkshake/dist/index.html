@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Fruit & Protein, il milkshake in brick con 20 g di proteine. Scopri cinque gusti, dal latte alla frutta.">
+  <title>Fruit &amp; Protein | Milkshake proteici</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=Space+Mono:ital,wght@0,400;0,700;1,400&amp;family=Permanent+Marker&amp;display=swap">
+  <link rel="stylesheet" href="./style.css">
+  <script src="./script.js" defer></script>
+</head>
+<body>
+  <div class="cursor" id="cursor" aria-hidden="true"></div>
+  <header class="site-header" id="home">
+    <div class="shell header-inner">
+      <a class="wordmark" href="#home">Fruit<span>&amp;</span>Protein</a>
+      <nav aria-label="Navigazione principale">
+        <a href="#progetto">Il progetto</a>
+        <a href="#shakes">I gusti</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="intro shell" aria-labelledby="intro-title">
+      <div class="intro-copy">
+        <p class="eyebrow">Milkshake proteico in brick</p>
+        <h1 id="intro-title">Proteine,<br> <em>con più gusto.</em></h1>
+        <p>Hai appena finito di allenarti e ti va qualcosa di buono? Fruit &amp; Protein porta 20 g di proteine in un brick da bere, dal gusto del latte alle varianti alla frutta.</p>
+        <a class="action" href="#progetto">Scopri come nasce l’idea</a>
+      </div>
+      <figure class="intro-photo">
+        <img src="./assets/fruit-protein/track-athlete.webp" alt="Atleta che si prende una pausa dopo la corsa sulla pista" width="1000" height="1250" fetchpriority="high">
+      </figure>
+    </section>
+
+    <section class="questions" id="progetto" aria-labelledby="questions-title">
+      <div class="shell questions-inner">
+        <div class="questions-copy">
+          <h2 id="questions-title">Cosa cerchi nel tuo spuntino?</h2>
+          <p>Abbiamo pensato Fruit &amp; Protein per quei momenti in cui vuoi qualcosa di pratico, ma il gusto conta.</p>
+          <a class="action action-light" href="#shakes">Ecco le nostre soluzioni</a>
+        </div>
+        <div class="question-list">
+          <details class="question" name="product-questions" open>
+            <summary>Vuoi uno spuntino dopo l’allenamento?</summary>
+            <div class="answer"><p>Ogni brick contiene 20 g di proteine. Lo porti con te e lo apri quando hai voglia di uno spuntino.</p></div>
+          </details>
+          <details class="question" name="product-questions">
+            <summary>Ti va un gusto alla frutta?</summary>
+            <div class="answer"><p>La dolcezza della banana, la fragola, la nota più intensa del mirtillo e quella più acidula del kiwi danno quattro caratteri diversi alla linea.</p></div>
+          </details>
+          <details class="question" name="product-questions">
+            <summary>Preferisci il sapore semplice del latte?</summary>
+            <div class="answer"><p>Il Classico è il punto di partenza della linea. È il gusto più delicato, pensato per chi preferisce un milkshake al latte.</p></div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="flavor-hero" id="shakes" data-flavor="classic" data-assets="./assets/fruit-protein/" aria-labelledby="flavors-title">
+      <div class="shell flavor-inner">
+        <header class="flavor-header">
+          <h2 id="flavors-title">Scegli il tuo gusto</h2>
+          <p>20 g di proteine per brick</p>
+        </header>
+        <div class="flavor-showcase">
+          <div class="flavor-options" role="group" aria-label="Gusti Fruit &amp; Protein">
+            <button class="flavor-option" type="button" data-select-flavor="classic" aria-pressed="true"><span aria-hidden="true"></span>Classico</button>
+            <button class="flavor-option" type="button" data-select-flavor="fragola" aria-pressed="false"><span aria-hidden="true"></span>Fragola</button>
+            <button class="flavor-option" type="button" data-select-flavor="banana" aria-pressed="false"><span aria-hidden="true"></span>Banana</button>
+            <button class="flavor-option" type="button" data-select-flavor="mirtillo" aria-pressed="false"><span aria-hidden="true"></span>Mirtillo</button>
+            <button class="flavor-option" type="button" data-select-flavor="kiwi" aria-pressed="false"><span aria-hidden="true"></span>Kiwi</button>
+          </div>
+          <div class="flavor-art">
+            <button class="brick" type="button" aria-label="Riproduci l’animazione del brick Classico">
+              <span class="brick-media">
+                <video class="flavor-motion is-visible" muted playsinline preload="auto" poster="./assets/fruit-protein/classic-contour-start.webp" aria-hidden="true"></video>
+              </span>
+              <span class="brick-hint" aria-hidden="true">Tocca il brick per animarlo</span>
+            </button>
+          </div>
+          <div class="flavor-detail" id="fresh" aria-live="polite" aria-atomic="true">
+            <h3 id="flavor-title">Classico</h3>
+            <p class="flavor-description">Un milkshake dal gusto morbido del latte. Il Classico mette al centro la cremosità e un finale delicato.</p>
+          </div>
+          <div class="flavor-fruits" aria-hidden="true"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="lifestyle shell" aria-labelledby="lifestyle-title">
+      <figure class="lifestyle-photo">
+        <img src="./assets/fruit-protein/training-lifestyle.webp" alt="Donna in abbigliamento sportivo con un milkshake" width="840" height="1260" loading="lazy">
+      </figure>
+      <div class="lifestyle-copy">
+        <h2 id="lifestyle-title">Tra un allenamento e il resto della giornata.</h2>
+        <p>Lo zaino è già pronto? Aggiungi il gusto che ti va oggi. Il formato in brick accompagna una pausa dopo lo sport o uno spuntino fuori casa.</p>
+        <a class="action" href="#shakes">Torna ai gusti</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell footer-inner">
+      <a class="wordmark" href="#home">Fruit<span>&amp;</span>Protein</a>
+      <p>Concept di prodotto per portfolio</p>
+      <a class="credit" href="https://codepen.io/Margarita-the-solid/pen/qEadERd">Template originale di Margarita</a>
+    </div>
+  </footer>
+</body>
+</html>

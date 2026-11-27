@@ -1,0 +1,41 @@
+/* Motore principale: sfondo e transizioni video senza sequenze di immagini in memoria. */
+#video-stage {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  background: var(--ink);
+}
+
+.scene-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 50%;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  background: var(--ink);
+}
+
+.scene-video.is-active {
+  opacity: 1;
+  visibility: visible;
+}
+
+body[data-engine="video"] #loading::before {
+  background-image: url('../assets/salon-poster.webp?v=1');
+}
+
+body[data-engine="video"] #debug {
+  display: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scene-video { display: none; }
+  #video-stage {
+    background: var(--ink) url('../assets/salon-poster.webp?v=1') center / cover no-repeat;
+  }
+}

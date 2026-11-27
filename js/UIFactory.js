@@ -11,10 +11,10 @@ const UIFactory = (() => {
 
         const items = [
             {
-                id: 'firma',
-                subtitle: 'Coffee Premium',
-                title: 'MACCHINA DA CAFFÈ',
-                classes: 'border-yellow-400/30 bg-yellow-400/10 hover:bg-yellow-400/20 text-yellow-300'
+                id: 'milkshake',
+                subtitle: 'Fruit Protein',
+                title: 'MILKSHAKE',
+                classes: 'border-red-500/30 bg-red-500/10 hover:bg-red-500/20 text-red-300'
             },
             {
                 id: 'aikon',
@@ -23,10 +23,10 @@ const UIFactory = (() => {
                 classes: 'border-lime-400/30 bg-lime-400/10 hover:bg-lime-400/20 text-lime-300'
             },
             {
-                id: 'wine',
-                subtitle: 'Luxury Wine',
-                title: 'WINE BOTTLE',
-                classes: 'border-red-500/30 bg-red-500/10 hover:bg-red-500/20 text-red-300'
+                id: 'firma',
+                subtitle: 'Coffee Premium',
+                title: 'MACCHINA DA CAFFÈ',
+                classes: 'border-yellow-400/30 bg-yellow-400/10 hover:bg-yellow-400/20 text-yellow-300'
             }
         ];
 

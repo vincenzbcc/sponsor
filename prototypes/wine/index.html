@@ -2,164 +2,344 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wine Journey | L'eccellenza in 5 tappe</title>
-    
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet">
-    
-    <!-- CSS -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#221e1d">
+    <meta name="description" content="Cantina Vespera — Una cantina di famiglia giunta alla quarta generazione. Scopri la vigna, la cantina in pietra e VESPERA — Rosso, L’Orizzonte Scuro.">
+    <title>Cantina Vespera — Una storia che non vuole morire mai</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600&display=swap">
     <link rel="stylesheet" href="style.css">
-    
-    <!-- GSAP -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/MotionPathPlugin.min.js"></script>
+    <script src="script.js" defer></script>
+    <script src="wine-bridge.js" defer></script>
 </head>
 <body>
+    <a class="skip-link" href="#famiglia">Vai al contenuto principale</a>
 
-    <!-- Preloader -->
-    <div id="loader">
-        <div class="loader-content">
-            <div class="progress-bar-container">
-                <div id="progress-bar"></div>
-            </div>
-            <div id="loading-text">CHROMA KEY PROCESSING — 0%</div>
+    <header class="site-header" data-header>
+        <div class="shell header-inner">
+            <a class="brand" href="#apertura" aria-label="Cantina Vespera — Torna all’inizio">
+                <span class="brand-emblem" aria-hidden="true"></span>
+                <span class="brand-text">Cantina Vespera</span>
+            </a>
+
+            <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" hidden>
+                <span class="nav-toggle-label">Menu</span>
+                <span class="nav-toggle-bars" aria-hidden="true"></span>
+            </button>
+
+            <nav class="site-nav" id="site-nav" aria-label="Navigazione principale">
+                <a href="#famiglia">La famiglia</a>
+                <a href="#vigna">La vigna</a>
+                <a href="#cantina">La cantina</a>
+                <a href="#vino">Il vino</a>
+                <div class="wine-menu-links" aria-label="Percorso del vino selezionato" hidden>
+                    <a href="#selezione-vini">Scegli un vino</a>
+                    <a href="#rotazione-vino">La bottiglia</a>
+                    <a href="#mescita-vino">La mescita</a>
+                    <a href="#sentiero-vino">Il percorso del calice</a>
+                </div>
+                <a href="#contatti">Contatti</a>
+            </nav>
         </div>
-    </div>
+    </header>
 
-    <!-- Hero Title (Fixed) -->
-    <div class="fixed-title" id="main-brand-title">WINE JOURNEY</div>
-
-    <!-- FASE 1: Canvas Scrollytelling (0 -> 400vh) -->
-    <section class="hero-wrapper" id="phase-1">
-        <div class="canvas-sticky">
-            <canvas id="wine-canvas"></canvas>
-
-            <div class="scroll-indicator" id="scroll-indicator">
-                Scorri per degustare
-                <span style="color: var(--gold);">✦</span>
+    <main>
+        <!-- 1. APERTURA -->
+        <section class="hero" id="apertura" aria-labelledby="hero-title">
+            <div class="hero-media" aria-hidden="true">
+                <img
+                    class="hero-photo"
+                    src="foto%20vigna.jpg"
+                    alt="Filari della vigna illuminati dalla luce calda del tramonto"
+                    width="612"
+                    height="374"
+                    fetchpriority="high"
+                >
             </div>
+            <div class="shell hero-content">
+                <p class="hero-brand hero-stagger">Cantina Vespera</p>
+                <h1 id="hero-title" class="hero-stagger">Una storia che non vuole <em>morire mai</em></h1>
+                <p class="hero-lead hero-stagger">
+                    Una cantina di famiglia arrivata alla quarta generazione, dove gli stessi gesti accompagnano la vigna fino al calice.
+                </p>
+                <div class="hero-actions hero-stagger">
+                    <a class="btn btn-primary" href="#famiglia">Scopri la nostra storia</a>
+                </div>
+            </div>
+        </section>
 
-            <!-- Narrative Beats -->
-            <div class="beats-container">
-                <div class="narrative-beat beat-a" id="beat-a">
-                    <h2>IL VINO NASCE QUI.</h2>
+        <!-- 2. LA FAMIGLIA -->
+        <section class="section section-family" id="famiglia" aria-labelledby="family-title">
+            <div class="shell family-layout">
+                <div class="family-header" data-reveal="text">
+                    <p class="eyebrow">La famiglia · Quarta generazione</p>
+                    <h2 id="family-title">Quattro generazioni, <em>la stessa cura</em></h2>
                 </div>
 
-                <div class="narrative-beat beat-b" id="beat-b">
-                    <h2>DALLA TERRA AL CALICE.</h2>
-                    <p class="beat-sub">Ogni vendemmia racconta un anno.</p>
+                <div class="family-editorial" data-reveal="text">
+                    <p class="editorial-lead">
+                        Ricevere una vigna in eredità non significa soltanto custodire una terra: significa accettare un tempo più ampio del proprio e continuare un dialogo iniziato molto prima di noi.
+                    </p>
+                    <div class="editorial-columns">
+                        <p>
+                            Chi ci ha insegnato questo mestiere lo ha fatto senza grandi discorsi, camminando tra i filari all’alba, mostrando dove fermare la forbice durante la potatura d’inverno e come ascoltare il respiro di ogni stagione. Quei gesti sono passati di mano in mano fino a noi, che oggi portiamo avanti la cantina alla quarta generazione.
+                        </p>
+                        <p>
+                            Ogni anno torniamo tra le stesse viti con lo sguardo di chi le conosce da sempre e il rispetto di chi sa di doverle consegnare integre a chi verrà dopo. Osservare la vigna, scegliere il giorno della raccolta, accompagnare il vino in cantina e saper aspettare: è così che la nostra storia continua a vivere.
+                        </p>
+                    </div>
                 </div>
 
-                <div class="narrative-beat beat-c" id="beat-c">
-                    <h2>OGNI SORSO HA UNA STORIA.</h2>
-                    <p class="beat-sub">Pazienza, legno, tempo.</p>
+                <ol class="gesture-strip" aria-label="I gesti tramandati in famiglia" data-reveal="text">
+                    <li>
+                        <span class="gesture-num">I</span>
+                        <span class="gesture-name">Osservare la vigna</span>
+                    </li>
+                    <li>
+                        <span class="gesture-num">II</span>
+                        <span class="gesture-name">Scegliere la raccolta</span>
+                    </li>
+                    <li>
+                        <span class="gesture-num">III</span>
+                        <span class="gesture-name">Accompagnare in cantina</span>
+                    </li>
+                    <li>
+                        <span class="gesture-num">IV</span>
+                        <span class="gesture-name">Aspettare la tavola</span>
+                    </li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- 3. LA VIGNA E LA VENDEMMIA -->
+        <section class="section section-vineyard" id="vigna" aria-labelledby="vineyard-title">
+            <div class="shell split-layout">
+                <div class="split-copy" data-reveal="text">
+                    <p class="eyebrow">La vigna e la vendemmia</p>
+                    <h2 id="vineyard-title">Il momento giusto si decide <em>tra i filari</em></h2>
+                    <p>
+                        Quando l’estate volge al termine e la luce della sera si fa più densa, passiamo tra i filari ogni giorno per seguire da vicino la maturazione. Non ci affidiamo solo alle abitudini: osserviamo i grappoli controsole, valutiamo la tenuta della buccia tra le dita e assaggiamo gli acini direttamente dalla pianta per sentire quando dolcezza, freschezza e struttura trovano il loro equilibrio.
+                    </p>
+                    <p>
+                        Solo allora inizia la vendemmia. Raccogliamo e selezioniamo l’uva con attenzione, scegliendo i grappoli sani e ben maturi e lasciando indietro ciò che non è pronto. È una cernita paziente che comincia già in mezzo alla vigna, perché in cantina entri soltanto il frutto migliore dell’annata.
+                    </p>
                 </div>
 
-                <div class="narrative-beat beat-d" id="beat-d">
-                    <h2>STAPPA IL MOMENTO.</h2>
-                    <a href="#footer" class="cta-button">Scopri il vino →</a>
+                <figure class="vineyard-figure" data-reveal="vineyard-crop">
+                    <div class="vineyard-crop-frame">
+                        <img
+                            src="foto%20vigna.jpg"
+                            alt="Dettaglio ravvicinato della trama dei filari, delle foglie e dei pali in legno nella vigna"
+                            width="612"
+                            height="374"
+                            loading="lazy"
+                        >
+                    </div>
+                    <figcaption class="media-caption">
+                        La trama ravvicinata dei nostri filari, dove seguiamo grappolo per grappolo la maturazione dell’uva.
+                    </figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <!-- 4. IL LAVORO IN CANTINA -->
+        <section class="section section-cellar" id="cantina" aria-labelledby="cellar-title">
+            <div class="shell split-layout split-layout-reverse">
+                <figure class="cellar-figure" data-reveal="barrels">
+                    <div class="cellar-photo-frame">
+                        <img
+                            src="botti%20vino.jpg"
+                            alt="La cantina in pietra di famiglia con le botti di legno allineate nella penombra"
+                            width="738"
+                            height="414"
+                            loading="lazy"
+                        >
+                    </div>
+                    <figcaption class="media-caption media-caption-dark">
+                        I muri in pietra e le botti di legno custodiscono il riposo lento del vino dopo la vendemmia.
+                    </figcaption>
+                </figure>
+
+                <div class="split-copy" data-reveal="text">
+                    <p class="eyebrow eyebrow-copper">Il lavoro in cantina</p>
+                    <h2 id="cellar-title">La pietra, il legno <em>e il silenzio</em></h2>
+                    <p>
+                        Conclusa la raccolta, l’uva entra nella nostra cantina in pietra e il ritmo rallenta. Seguiamo la fermentazione con cura quotidiana, accompagnando in modo naturale il passaggio in cui il mosto diventa vino, sprigiona i suoi profumi e costruisce il proprio carattere senza forzature.
+                    </p>
+                    <p>
+                        Finita la fase più viva, comincia il lungo riposo dell’affinamento nelle botti di legno. Protetto dallo spessore della pietra, nella quiete fresca e raccolta della cantina, il vino matura per tutto il tempo che l’annata richiede, ammorbidendo gli spigoli e trovando profondità.
+                    </p>
+                    <p class="cellar-note">
+                        Prima di incontrare la tavola, ogni bottiglia riposa ancora al buio e lontano dagli sbalzi termici. Per custodirne intatta l’evoluzione anche a casa, consigliamo di conservarla coricata in un luogo fresco, silenzioso e al riparo dalla luce diretta e dalle fonti di calore.
+                    </p>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- FASE 2: Main GSAP Scroll Container (SVG Path) -->
-    <div class="scroll-container" id="phase-2">
-        
-        <!-- SVG Path tracing -->
-        <svg id="path-svg" xmlns="http://www.w3.org/2000/svg">
-            <path id="glow-path" fill="none" stroke="rgba(212,175,55,0.08)" stroke-width="6"></path>
-            <path id="trace-path" fill="none" stroke="rgba(212, 175, 55, 0.30)" stroke-width="1.5" stroke-dasharray="6 10"></path>
-        </svg>
+        <!-- 5. IL NOSTRO VINO -->
+        <section class="section section-wine" id="vino" aria-labelledby="wine-title">
+            <div class="shell">
+                <div class="wine-intro">
+                    <p class="eyebrow">Cantina Vespera</p>
+                    <h2 id="wine-title">Il nostro vino</h2>
+                    <p>Tre vini raccontano il lavoro della nostra famiglia, dalla scelta dei grappoli al primo calice. Scegline uno per seguirne la storia.</p>
+                </div>
 
-        <!-- Moving Bottle DOM Element (Takes over after Canvas) -->
-        <div class="bottle-container" id="bottle">
-            <img src="" alt="Wine Bottle" class="bottle-img" id="bottle-img">
-        </div>
-
-        <!-- 5 Tappe -->
-        <div class="stop-cards">
-            
-            <div class="card card-odd" id="card-1">
-                <div class="label">01/05 — IL TERROIR</div>
-                <h2>LA TERRA SCEGLIE</h2>
-                <p><i>"La terra sceglie il vino prima che la vigna esista. Il carattere di ogni bottiglia inizia nel sottosuolo — nel minerale, nel clima, nel silenzio di un appezzamento."</i></p>
+                <div class="wine-selection" id="selezione-vini" tabindex="-1">
+                    <div class="wine-cards">
+                        <article class="wine-card" data-wine="rosso">
+                            <button type="button" class="wine-preview" aria-label="Ruota la bottiglia di Vespera Rosso">
+                                <img src="bottiglie/rosso/animazione/anteprima.webp" alt="Bottiglia di Vespera Rosso" width="172" height="540" decoding="async">
+                            </button>
+                            <button class="btn wine-choice" type="button" aria-expanded="false" aria-controls="percorso-vino" hidden>Scopri il Rosso</button>
+                        </article>
+                        <article class="wine-card" data-wine="bianco">
+                            <button type="button" class="wine-preview" aria-label="Ruota la bottiglia di Vespera Bianco">
+                                <img src="bottiglie/bianco/animazione/anteprima.webp" alt="Bottiglia di Vespera Bianco" width="172" height="540" decoding="async">
+                            </button>
+                            <button class="btn wine-choice" type="button" aria-expanded="false" aria-controls="percorso-vino" hidden>Scopri il Bianco</button>
+                        </article>
+                        <article class="wine-card" data-wine="rosato">
+                            <button type="button" class="wine-preview" aria-label="Ruota la bottiglia di Vespera Rosato">
+                                <img src="bottiglie/rosato/animazione/anteprima.webp" alt="Bottiglia di Vespera Rosato" width="172" height="540" decoding="async">
+                            </button>
+                            <button class="btn wine-choice" type="button" aria-expanded="false" aria-controls="percorso-vino" hidden>Scopri il Rosato</button>
+                        </article>
+                    </div>
+                </div>
             </div>
 
-            <div class="card card-even" id="card-2">
-                <div class="label">02/05 — LA VENDEMMIA</div>
-                <h2>IL MOMENTO GIUSTO</h2>
-                <p><i>"Raccogliere al momento giusto è tutto. Un giorno di ritardo o di anticipo cambia il vino per sempre. Il tempo non perdona chi non lo ascolta."</i></p>
+            <div class="wine-experience" id="percorso-vino" aria-labelledby="wine-experience-title" hidden>
+                <div class="shell wine-experience-heading">
+                    <h3 id="wine-experience-title" tabindex="-1"></h3>
+                </div>
+                <div class="wine-sequence wine-sequence-bottle" id="rotazione-vino" data-wine-sequence>
+                    <div class="wine-stage">
+                        <canvas class="wine-bottle" data-wine-bottle role="img"></canvas>
+                        <ol class="wine-chapters">
+                            <li><h4></h4><p></p></li>
+                            <li><h4></h4><p></p></li>
+                            <li><h4></h4><p></p></li>
+                        </ol>
+                    </div>
+                </div>
+                <div class="wine-journey" id="mescita-vino">
+                    <div class="wine-journey-landscape">
+                        <div class="wine-pour-space" aria-hidden="true"></div>
+                        <div class="wine-route" id="sentiero-vino">
+                            <svg class="wine-glass-path" aria-hidden="true"><path></path></svg>
+                            <div class="wine-route-start" aria-hidden="true"></div>
+                            <ol class="wine-trail-notes">
+                                <li><div class="wine-route-copy"><h4></h4><p></p></div><img alt="" loading="lazy"></li>
+                                <li><div class="wine-route-copy"><h4></h4><p></p></div><img alt="" loading="lazy"></li>
+                                <li><div class="wine-route-copy"><h4></h4><p></p></div><img alt="" loading="lazy"></li>
+                                <li><div class="wine-route-copy"><h4></h4><p></p></div><img alt="" loading="lazy"></li>
+                            </ol>
+                            <div class="wine-route-end" aria-hidden="true"></div>
+                        </div>
+                    </div>
+                    <div class="wine-stage wine-stage-glass">
+                        <video class="wine-pour" data-wine-pour muted playsinline preload="auto" hidden></video>
+                        <div class="wine-glass-trail" hidden>
+                            <canvas class="wine-glass" data-wine-glass role="img"></canvas>
+                            <div class="wine-grapes" aria-hidden="true">
+                                <img alt=""><img alt=""><img alt=""><img alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+        </section>
 
-            <div class="card card-odd" id="card-3">
-                <div class="label">03/05 — LA FERMENTAZIONE</div>
-                <h2>LA TRASFORMAZIONE</h2>
-                <p><i>"Il mosto non sa ancora cosa diventerà. È il momento più incerto e più vivo — quando la materia si trasforma e l'uva smette di esistere per diventare qualcos'altro."</i></p>
+        <!-- 6. A TAVOLA -->
+        <section class="section section-table" id="tavola" aria-labelledby="table-title">
+            <div class="shell table-layout">
+                <div class="table-intro" data-reveal="text">
+                    <p class="eyebrow">A tavola</p>
+                    <h2 id="table-title">L’attesa finisce dove inizia <em>l’incontro</em></h2>
+                    <p>
+                        Dopo i mesi trascorsi in vigna e nel silenzio della cantina, il nostro vino trova il suo senso più vero quando arriva in tavola. Ci piace immaginarlo così come lo viviamo noi: all’aperto tra i filari o nella sala di casa, tra calici pronti, pane spezzato e il piacere semplice di ritrovarsi insieme senza guardare l’orologio.
+                    </p>
+                </div>
+
+                <figure class="table-figure" data-reveal="table-photo">
+                    <div class="table-photo-frame">
+                        <img
+                            src="foto%20tavola.jpg"
+                            alt="Tavola apparecchiata all’aperto tra i filari con calici, tovaglia ricamata, rami d’ulivo e bottiglie di vino nella luce dorata"
+                            width="1000"
+                            height="667"
+                            loading="lazy"
+                        >
+                    </div>
+                </figure>
+
+                <div class="table-closing" data-reveal="text">
+                    <p>
+                        Ogni bottiglia stappata è un invito a sedersi con noi e a condividere il frutto di quattro generazioni di lavoro. Se desiderate conoscere da vicino la cantina o ricevere informazioni sul nostro vino, saremo felici di accogliervi.
+                    </p>
+                    <a class="btn btn-secondary" href="#contatti">Contatta la cantina</a>
+                </div>
             </div>
+        </section>
 
-            <div class="card card-even" id="card-4">
-                <div class="label">04/05 — L'INVECCHIAMENTO</div>
-                <h2>LA PAZIENZA</h2>
-                <p><i>"Il legno insegna la pazienza. In cantina non si accelera nulla. Il vino prende il suo tempo perché sa di averne bisogno."</i></p>
+        <!-- CONTATTI -->
+        <section class="section section-contacts" id="contatti" aria-labelledby="contacts-title">
+            <div class="shell contacts-layout">
+                <div class="contacts-copy" data-reveal="text">
+                    <p class="eyebrow eyebrow-copper">Contatti</p>
+                    <h2 id="contacts-title">Venite a trovarci <em>in cantina</em></h2>
+                    <p>
+                        Apriamo le porte della nostra cantina su appuntamento per chi desidera passeggiare lungo i filari, visitare la sala delle botti in pietra e degustare insieme a noi <strong>VESPERA — Rosso, L’Orizzonte Scuro</strong>.
+                    </p>
+                    <ul class="contacts-highlights" aria-label="Informazioni per gli ospiti">
+                        <li>
+                            <span class="highlight-label">Ospitalità</span>
+                            <span>Visite guidate in vigna e degustazioni in cantina su prenotazione</span>
+                        </li>
+                        <li>
+                            <span class="highlight-label">Richieste dirette</span>
+                            <span>Informazioni su disponibilità, annate e forniture per la tavola</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <form class="contact-form" data-contact-form data-reveal="text">
+                    <h3 class="form-title">Scrivici un messaggio</h3>
+                    <div class="form-field">
+                        <label for="guest-name">Nome e cognome</label>
+                        <input id="guest-name" name="name" type="text" autocomplete="name" required placeholder="Il tuo nome">
+                    </div>
+                    <div class="form-field">
+                        <label for="guest-email">Indirizzo email</label>
+                        <input id="guest-email" name="email" type="email" autocomplete="email" required placeholder="nome@esempio.it">
+                    </div>
+                    <div class="form-field">
+                        <label for="guest-message">Messaggio</label>
+                        <textarea id="guest-message" name="message" rows="4" required placeholder="Raccontaci se desideri prenotare una visita in cantina o ricevere informazioni su Vespera."></textarea>
+                    </div>
+                    <button class="btn btn-copper" type="submit">Invia richiesta alla cantina</button>
+                    <p class="form-status" role="status" aria-live="polite" data-form-status></p>
+                </form>
             </div>
+        </section>
+    </main>
 
-            <div class="card card-odd" id="card-5">
-                <div class="label">05/05 — LA BOTTIGLIA</div>
-                <h2>L'ULTIMA PORTA</h2>
-                <p><i>"Il tappo è l'ultima porta. Quello che c'è dentro non cambierà più — è già diventato quello che doveva essere. Ora tocca a te."</i></p>
+    <footer class="site-footer">
+        <div class="shell footer-inner">
+            <div class="footer-brand-group">
+                <span class="brand-text">Cantina Vespera</span>
+                <span class="footer-motto">Quarta generazione · Una storia che non vuole morire mai</span>
             </div>
-
+            <nav class="footer-nav" aria-label="Collegamenti rapidi">
+                <a href="#famiglia">La famiglia</a>
+                <a href="#vigna">La vigna</a>
+                <a href="#cantina">La cantina</a>
+                <a href="#vino">Il vino</a>
+                <a href="#apertura">Torna su <span aria-hidden="true">↑</span></a>
+            </nav>
         </div>
-    </div>
-
-    <!-- Keep Scrolling Section -->
-    <section class="keep-scrolling">
-        <div class="ks-label">✦ LE CINQUE TAPPE SONO COMPIUTE ✦</div>
-        <div class="ks-headline">ORA ARRIVA <em>IL MOMENTO</em></div>
-        <div class="ks-sub">"Passa il cursore su ogni riga per fare il tuo brindisi."</div>
-    </section>
-
-    <!-- Clip Section (Hover Effects) -->
-    <section class="clip-section">
-        <div class="hover-text-container">
-            <h1 class="clip-text">
-                <span class="odd">STAPPA</span> &lt;IL MOMENTO&gt;
-            </h1>
-            <h1 class="clip-text">
-                <span class="even">DEGUSTA</span> &lt;L'ECCELLENZA&gt;
-            </h1>
-            <h1 class="clip-text">
-                <span class="odd">SCEGLI</span> &lt;IL TUO VINO&gt;
-            </h1>
-            <h1 class="clip-text">
-                <span class="even">BEVI</span> &lt;SENZA FRETTA&gt;
-            </h1>
-            <h1 class="clip-text">
-                <span class="odd">INIZIA</span> &lt;DA QUI&gt;
-            </h1>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-brand">CHÂTEAU MARGARITA</div>
-        <div class="footer-bottom">
-            <button class="btn-email">INFO@CHATEAUMARGARITA.COM</button>
-            <button class="btn-codepen">VISITA LA CANTINA</button>
-        </div>
-        <div class="outro">
-            <p>✦ OGNI SORSO HA UNA STORIA · OGNI STORIA HA UN VINO · OGNI VINO HA IL SUO TEMPO ✦</p>
-        </div>
-        
-        <!-- Decorative floating elements -->
-        <div class="deco deco-1">✦</div>
-        <div class="deco deco-2">✦</div>
-        <div class="deco deco-3">✦</div>
     </footer>
-
-    <script src="script.js"></script>
 </body>
 </html>

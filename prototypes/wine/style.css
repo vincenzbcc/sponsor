@@ -1,461 +1,1670 @@
 :root {
-    --bordeaux:    #4A0404;
-    --bordeaux-mid: #7B1C1C;
-    --gold:        #D4AF37;
-    --gold-light:  #F0D060;
-    --cream:       #F5F0E8;
-    --cream-dark:  #E8E0D0;
-    --ink:         #1A1A1A;
-    --parchment:   #FDF8EF;
+    color-scheme: light;
+    /* Palette ispirata all'etichetta Vespera: avorio caldo, bordeaux, antracite e accenti rame */
+    --ivory: #f6f0e6;
+    --ivory-soft: #ede3d4;
+    --ivory-bright: #fbf8f3;
+    --anthracite: #221f1e;
+    --anthracite-deep: #181615;
+    --anthracite-soft: #2e2927;
+    --ink-muted: #5a504b;
+    --ivory-muted: #cfc3b4;
+    --bordeaux: #5e212d;
+    --bordeaux-deep: #461620;
+    --copper: #b87348;
+    --copper-dark: #8e512c;
+    --copper-light: #d7966c;
+    --line-light: rgba(34, 31, 30, 0.14);
+    --line-dark: rgba(246, 240, 230, 0.16);
+    --serif: "Cormorant Garamond", Georgia, serif;
+    --sans: "Inter", system-ui, -apple-system, sans-serif;
+    --header-h: 4.5rem;
+    --ease-editorial: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-* {
-    margin: 0;
-    padding: 0;
+*,
+*::before,
+*::after {
     box-sizing: border-box;
-    cursor: default;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: var(--header-h);
 }
 
 body {
-    background: linear-gradient(
-        160deg,
-        #FDF8EF 0%,
-        #F5F0E8 30%,
-        #EDE0CC 60%,
-        #E8D5B8 80%,
-        #DFC9A0 100%
-    );
-    color: var(--ink);
-    font-family: 'Cormorant Garamond', serif;
-    overflow-x: hidden;
+    margin: 0;
+    background-color: var(--ivory);
+    color: var(--anthracite);
+    font-family: var(--sans);
+    font-size: 1rem;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
 }
 
-/* Custom Typography */
-h1, h2, h3, h4, h5, h6 {
-    font-family: 'Cinzel', serif;
-    text-transform: uppercase;
-    color: var(--bordeaux);
+h1,
+h2,
+h3,
+p,
+figure,
+dl,
+dd,
+ol,
+ul {
+    margin: 0;
 }
 
-/* Preloader */
-#loader {
-    position: fixed;
-    inset: 0;
-    background: var(--parchment);
-    z-index: 1000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: opacity 1s ease;
+ol,
+ul {
+    padding: 0;
+    list-style: none;
 }
 
-.loader-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-    width: 250px;
+img,
+video {
+    display: block;
+    max-width: 100%;
 }
 
-.progress-bar-container {
-    width: 100%;
-    height: 2px;
-    background: var(--cream-dark);
+a {
+    color: inherit;
 }
 
-#progress-bar {
-    width: 0%;
-    height: 100%;
-    background: var(--bordeaux);
-    transition: width 0.1s ease;
+button,
+input,
+textarea {
+    font: inherit;
 }
 
-#loading-text {
-    font-family: 'Inter', sans-serif;
-    font-size: 0.857rem;
-    color: var(--bordeaux);
-    letter-spacing: 0.1em;
+:focus-visible {
+    outline: 2px solid var(--copper);
+    outline-offset: 3px;
 }
 
-/* Hero Title (Fixed) */
-.fixed-title {
-    position: fixed;
-    top: 2rem;
-    left: 2rem;
-    font-family: 'Cinzel', serif;
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--bordeaux);
-    letter-spacing: 0.15em;
-    z-index: 100;
-    mix-blend-mode: multiply;
-}
-
-/* FASE 1: Hero Wrapper & Canvas Sticky */
-.hero-wrapper {
-    height: 400vh;
-    position: relative;
-    min-height: 100vh;
-    z-index: 2;
-}
-
-.canvas-sticky {
-    position: sticky;
-    top: 0;
-    height: 100vh;
-    width: 100%;
-    overflow: hidden;
-    /* This section is completely transparent to let the body gradient show */
-}
-
-#wine-canvas {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    transform-origin: center center;
-    /* We apply Chroma Key in JS, no mix-blend-mode needed here as the pixels will be perfectly transparent! */
-}
-
-.scroll-indicator {
+.skip-link {
     position: absolute;
-    bottom: 2rem;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 0.786rem;
-    color: var(--bordeaux);
-    text-transform: uppercase;
-    transition: opacity 0.3s ease;
-    z-index: 10;
-    font-family: 'Inter', sans-serif;
-    letter-spacing: 0.2em;
-}
-
-/* Narrative Beats */
-.beats-container {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    z-index: 5;
-}
-
-.narrative-beat {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 2rem 5vw;
-    opacity: 0;
-    transform: translateY(20px);
-}
-
-.narrative-beat h2 {
-    font-family: 'Cinzel', serif;
-    font-weight: 400;
-    line-height: 1;
-    margin-bottom: 0.5rem;
-    font-size: clamp(4rem, 10vw, 9rem);
-    color: var(--bordeaux);
-}
-
-.beat-sub {
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-size: clamp(1.5rem, 3vw, 2.5rem);
-    color: var(--ink);
-}
-
-.cta-button {
-    pointer-events: auto;
-    margin-top: 2rem;
-    display: inline-block;
-    background: var(--gold);
-    color: var(--bordeaux);
-    font-family: 'Inter', sans-serif;
-    padding: 1rem 2rem;
-    text-transform: uppercase;
-    letter-spacing: 0.2em;
+    left: -9999px;
+    top: 0.75rem;
+    z-index: 200;
+    background: var(--anthracite);
+    color: var(--ivory);
+    padding: 0.65rem 1.1rem;
     text-decoration: none;
-    transition: all 0.3s ease;
-    border: 1px solid transparent;
+    font-size: 0.875rem;
 }
 
-.cta-button:hover {
-    background: transparent;
-    border-color: var(--gold);
-    color: var(--gold);
+.skip-link:focus {
+    left: 1rem;
 }
 
-/* Beat Specific Layouts */
-.beat-a { align-items: center; text-align: center; }
-.beat-b { align-items: flex-start; padding-left: 10vw; }
-.beat-c { align-items: flex-end; text-align: right; padding-right: 10vw; }
-.beat-d { align-items: center; text-align: center; }
-
-
-/* FASE 2: SVG Path Tracking */
-.scroll-container {
-    position: relative;
-    width: 100%;
-    min-height: 200vh; /* Will be set dynamically by JS */
-    z-index: 1;
+.shell {
+    width: min(100% - 2 * clamp(1.25rem, 5vw, 4.5rem), 76rem);
+    margin-inline: auto;
 }
 
-#path-svg {
-    position: absolute;
+/* ==========================================================================
+   HEADER E NAVIGAZIONE ESSENZIALE
+   ========================================================================== */
+
+.site-header {
+    position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
+    right: 0;
+    z-index: 100;
+    height: var(--header-h);
+    background: rgba(24, 22, 21, 0.58);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(246, 240, 230, 0.14);
+    color: var(--ivory);
+    transition: background-color 0.35s var(--ease-editorial), color 0.35s var(--ease-editorial), border-color 0.35s var(--ease-editorial);
+}
+
+.site-header.is-scrolled {
+    background: rgba(246, 240, 230, 0.95);
+    color: var(--anthracite);
+    border-bottom-color: var(--line-light);
+}
+
+.header-inner {
     height: 100%;
-    z-index: 1;
-    pointer-events: none;
-}
-
-/* Bottle Element (DOM) */
-.bottle-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 400px; /* Big enough to hold the scaled frame */
     display: flex;
-    justify-content: center;
     align-items: center;
-    z-index: 10;
-    transform-origin: center center;
-    will-change: transform;
-    opacity: 0; /* Hidden initially, shown after Phase 1 */
-}
-
-.bottle-img {
-    width: 100%;
-    height: auto;
-    /* drop shadow not strictly needed if frame has lighting, but can help */
-    filter: drop-shadow(0 8px 24px rgba(74,4,4,0.35));
-    animation: bottle-sway 3s ease-in-out infinite alternate;
-    transform-origin: center center;
-}
-
-@keyframes bottle-sway {
-    0% { transform: rotate(-3deg); }
-    100% { transform: rotate(3deg); }
-}
-
-/* Stop Cards */
-.stop-cards {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 5;
-}
-
-.card {
-    position: absolute;
-    width: 90vw;
-    max-width: 450px;
-    padding: 2.5rem;
-    border: 1.5px solid rgba(212, 175, 55, 0.45);
-    box-shadow: 4px 4px 0 rgba(74,4,4,0.12);
-    opacity: 0;
-    transform: translateY(30px);
-    transition: box-shadow 0.3s ease;
-}
-
-.card:hover {
-    box-shadow: 8px 8px 0 rgba(74,4,4,0.2);
-}
-
-.card-odd { background: var(--parchment); left: 5vw; }
-.card-even { background: var(--cream-dark); right: 5vw; }
-
-.card .label {
-    font-family: 'Inter', sans-serif;
-    font-size: 11px;
-    letter-spacing: 0.4em;
-    color: var(--gold);
-    opacity: 0.8;
-    margin-bottom: 1rem;
-    text-transform: uppercase;
-}
-
-.card h2 {
-    font-family: 'Cinzel', serif;
-    color: var(--bordeaux);
-    font-size: 2rem;
-    margin-bottom: 1.5rem;
-    text-shadow: none;
-    line-height: 1.1;
-}
-
-.card p {
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-size: clamp(15px, 2vw, 20px);
-    color: var(--ink);
-    opacity: 0.75;
-    line-height: 1.5;
-}
-
-/* Keep Scrolling Section */
-.keep-scrolling {
-    background: var(--bordeaux);
-    padding: 8rem 2rem;
-    text-align: center;
-    position: relative;
-    z-index: 20;
-    border-top: 2px solid var(--gold);
-}
-
-.ks-label {
-    font-family: 'Inter', sans-serif;
-    font-size: 12px;
-    letter-spacing: 0.4em;
-    color: var(--gold);
-    opacity: 0.8;
-    margin-bottom: 2rem;
-}
-
-.ks-headline {
-    font-family: 'Cinzel', serif;
-    font-size: clamp(2rem, 5vw, 4rem);
-    color: var(--parchment);
-    margin-bottom: 1.5rem;
-}
-
-.ks-headline em {
-    color: var(--gold);
-    font-style: normal;
-}
-
-.ks-sub {
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-size: 1.5rem;
-    color: var(--cream);
-    opacity: 0.7;
-}
-
-/* Clip Section */
-.clip-section {
-    padding: 10rem 2rem;
-    background: var(--parchment);
-    position: relative;
-    z-index: 20;
-    overflow: hidden;
-}
-
-.hover-text-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    justify-content: space-between;
     gap: 1.5rem;
 }
 
-.clip-text {
-    font-family: 'Cinzel', serif;
-    font-size: clamp(2.5rem, 6vw, 6rem);
-    color: var(--bordeaux);
-    line-height: 1.1;
-    white-space: nowrap;
-    transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-    position: relative;
+.brand {
     display: inline-flex;
     align-items: center;
-    gap: 1rem;
+    gap: 0.7rem;
+    text-decoration: none;
 }
 
-.clip-text:hover { transform: scale(1.05); }
-
-.clip-text span {
-    padding: 0.2em 0.5em;
-    display: inline-block;
-    transition: all 0.3s ease;
-}
-
-.clip-text span.odd { background: var(--bordeaux); color: var(--parchment); }
-.clip-text span.even { background: var(--gold); color: var(--bordeaux); }
-.clip-text:hover span.odd { background: var(--bordeaux-mid); }
-.clip-text:hover span.even { background: var(--gold-light); }
-
-/* Footer */
-.footer {
-    background: var(--bordeaux);
-    border-top: 2px solid var(--gold);
-    padding: 6rem 2rem 3rem;
-    text-align: center;
+/* Richiamo grafico minimale al bollo bordeaux e linea rame dell'etichetta Vespera */
+.brand-emblem {
     position: relative;
-    z-index: 20;
+    width: 1.35rem;
+    height: 1.35rem;
+    border-radius: 50%;
+    background: var(--bordeaux);
+    flex-shrink: 0;
+    box-shadow: inset 0 0 0 1px rgba(215, 150, 108, 0.35);
+}
+
+.brand-emblem::after {
+    content: "";
+    position: absolute;
+    left: -12%;
+    right: -12%;
+    top: 56%;
+    height: 1.5px;
+    background: var(--copper-light);
+    transform: rotate(-22deg);
+}
+
+.brand-text {
+    font-family: var(--serif);
+    font-size: clamp(1.3rem, 2vw, 1.6rem);
+    font-weight: 600;
+    letter-spacing: 0.03em;
+}
+
+.site-nav {
+    display: flex;
+    align-items: center;
+    gap: clamp(1.1rem, 2.5vw, 2.2rem);
+}
+
+.site-nav a {
+    position: relative;
+    text-decoration: none;
+    font-size: 0.86rem;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    padding-block: 0.35rem;
+    transition: color 0.25s ease;
+}
+
+.site-nav a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    background: var(--copper-light);
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 0.3s var(--ease-editorial);
+}
+
+.site-header.is-scrolled .site-nav a::after {
+    background: var(--bordeaux);
+}
+
+.site-nav a:hover::after,
+.site-nav a:focus-visible::after {
+    transform: scaleX(1);
+}
+
+.nav-toggle {
+    display: none;
+    align-items: center;
+    gap: 0.55rem;
+    background: transparent;
+    border: 1px solid currentColor;
+    color: inherit;
+    min-height: 42px;
+    padding: 0.4rem 0.85rem;
+    font-size: 0.82rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.nav-toggle-bars {
+    position: relative;
+    width: 1rem;
+    height: 2px;
+    background: currentColor;
+}
+
+.nav-toggle-bars::before,
+.nav-toggle-bars::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 1rem;
+    height: 2px;
+    background: currentColor;
+    transition: transform 0.25s ease;
+}
+
+.nav-toggle-bars::before {
+    top: -5px;
+}
+
+.nav-toggle-bars::after {
+    top: 5px;
+}
+
+.nav-toggle[aria-expanded="true"] .nav-toggle-bars {
+    background: transparent;
+}
+
+.nav-toggle[aria-expanded="true"] .nav-toggle-bars::before {
+    transform: translateY(5px) rotate(45deg);
+}
+
+.nav-toggle[aria-expanded="true"] .nav-toggle-bars::after {
+    transform: translateY(-5px) rotate(-45deg);
+}
+
+/* ==========================================================================
+   TIPOGRAFIA CONDIVISA E PULSANTI
+   ========================================================================== */
+
+.eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    font-size: 0.76rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--bordeaux);
+    margin-bottom: 1rem;
+}
+
+.eyebrow::before {
+    content: "";
+    width: 1.75rem;
+    height: 1px;
+    background: var(--copper);
+}
+
+.eyebrow-copper {
+    color: var(--copper-light);
+}
+
+.eyebrow-copper::before {
+    background: var(--copper-light);
+}
+
+h1,
+h2 {
+    font-family: var(--serif);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 1.04;
+}
+
+h2 {
+    font-size: clamp(2.35rem, 4.6vw, 3.85rem);
+}
+
+h1 em,
+h2 em {
+    font-style: italic;
+    font-weight: 400;
+}
+
+.section h2 em {
+    color: var(--bordeaux);
+}
+
+.section-cellar h2 em,
+.section-contacts h2 em {
+    color: var(--copper-light);
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    padding: 0.85rem 1.75rem;
+    font-size: 0.88rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: background-color 0.3s var(--ease-editorial), color 0.3s var(--ease-editorial), border-color 0.3s var(--ease-editorial), transform 0.3s var(--ease-editorial);
+}
+
+.btn-primary {
+    background: var(--bordeaux);
+    border-color: rgba(215, 150, 108, 0.55);
+    color: var(--ivory);
+}
+
+.btn-primary:hover {
+    background: var(--bordeaux-deep);
+    border-color: var(--copper-light);
+}
+
+.btn-secondary {
+    background: transparent;
+    border-color: var(--bordeaux);
+    color: var(--bordeaux);
+}
+
+.btn-secondary:hover {
+    background: var(--bordeaux);
+    color: var(--ivory);
+}
+
+.btn-copper {
+    background: var(--copper);
+    border-color: var(--copper);
+    color: var(--anthracite-deep);
+    font-weight: 600;
+}
+
+.btn-copper:hover {
+    background: var(--copper-light);
+    border-color: var(--copper-light);
+}
+
+/* ==========================================================================
+   1. APERTURA (FOTO 3 — FILARI AL TRAMONTO)
+   ========================================================================== */
+
+.hero {
+    position: relative;
+    min-height: min(100svh, 58rem);
+    display: flex;
+    align-items: flex-end;
+    padding-top: calc(var(--header-h) + 3rem);
+    padding-bottom: clamp(3.5rem, 8vh, 6rem);
+    color: var(--ivory);
+    background: var(--anthracite-deep);
     overflow: hidden;
 }
 
-.footer-brand {
-    font-family: 'Cinzel', serif;
-    font-size: clamp(2rem, 5vw, 4rem);
-    color: var(--parchment);
-    margin-bottom: 3rem;
-    letter-spacing: 0.1em;
-}
-
-.footer-bottom {
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
-    margin-bottom: 4rem;
-    flex-wrap: wrap;
-}
-
-.footer-bottom button {
-    font-family: 'Inter', sans-serif;
-    font-size: 13px;
-    letter-spacing: 0.2em;
-    padding: 1rem 2rem;
-    border: none;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.btn-email { background: var(--gold); color: var(--bordeaux); }
-.btn-email:hover { background: var(--gold-light); }
-.btn-codepen { background: transparent; color: var(--gold); border: 1px solid var(--gold) !important; }
-.btn-codepen:hover { background: rgba(212,175,55,0.1); }
-
-.outro {
-    border-top: 1px solid rgba(212,175,55,0.2);
-    padding-top: 2rem;
-}
-
-.outro p {
-    font-family: 'Inter', sans-serif;
-    font-size: 10px;
-    letter-spacing: 0.3em;
-    color: var(--parchment);
-    opacity: 0.5;
-}
-
-/* Decorative floating elements */
-.deco {
+.hero-media {
     position: absolute;
-    font-size: 2rem;
-    color: var(--gold);
-    opacity: 0.18;
+    inset: 0;
+    z-index: 0;
+}
+
+.hero-media::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(180deg, rgba(24, 22, 21, 0.52) 0%, rgba(34, 24, 26, 0.24) 38%, rgba(24, 20, 19, 0.78) 82%, rgba(24, 20, 19, 0.9) 100%),
+        radial-gradient(circle at 75% 24%, rgba(184, 115, 72, 0.18), transparent 55%);
+}
+
+.hero-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 52% 40%;
+    transform: scale(1.01);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 50rem;
+    margin-inline: 0;
+    padding-left: clamp(1.25rem, 5vw, 4.5rem);
+    padding-right: clamp(1.25rem, 5vw, 3rem);
+}
+
+@media (min-width: 1280px) {
+    .hero-content {
+        margin-left: calc((100vw - 76rem) / 2);
+        padding-left: 0;
+    }
+}
+
+.hero-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--copper-light);
+    margin-bottom: 1rem;
+}
+
+.hero-brand::before {
+    content: "";
+    width: 2.2rem;
+    height: 1px;
+    background: var(--copper-light);
+}
+
+.hero h1 {
+    font-size: clamp(2.9rem, 6.4vw, 5.4rem);
+    line-height: 0.98;
+    max-width: 14ch;
+    color: var(--ivory);
+    text-wrap: balance;
+}
+
+.hero h1 em {
+    color: #f0cbb1;
+}
+
+.hero-lead {
+    margin-top: 1.35rem;
+    max-width: 46ch;
+    font-size: clamp(1.02rem, 1.45vw, 1.2rem);
+    line-height: 1.65;
+    color: rgba(246, 240, 230, 0.9);
+}
+
+.hero-actions {
+    margin-top: 2.1rem;
+}
+
+/* ==========================================================================
+   SEZIONI EDITORIALI COMUNI
+   ========================================================================== */
+
+.section {
+    padding-block: clamp(4.5rem, 9.5vw, 8.5rem);
+}
+
+.media-caption {
+    margin-top: 0.85rem;
+    font-size: 0.84rem;
+    line-height: 1.5;
+    color: var(--ink-muted);
+    padding-left: 0.85rem;
+    border-left: 1px solid var(--copper);
+}
+
+.media-caption-dark {
+    color: var(--ivory-muted);
+    border-left-color: var(--copper-light);
+}
+
+/* ==========================================================================
+   2. LA FAMIGLIA
+   ========================================================================== */
+
+.section-family {
+    background: var(--ivory);
+    padding-block: clamp(5.2rem, 11vw, 9.5rem);
+    border-bottom: 1px solid var(--line-light);
+}
+
+.family-layout {
+    max-width: 64rem;
+}
+
+.family-header h2 {
+    max-width: 16ch;
+    text-wrap: balance;
+}
+
+.family-editorial {
+    margin-top: clamp(2rem, 4vw, 3.2rem);
+}
+
+.editorial-lead {
+    font-family: var(--serif);
+    font-size: clamp(1.45rem, 2.5vw, 2.05rem);
+    line-height: 1.38;
+    color: var(--anthracite);
+    max-width: 44ch;
+}
+
+.editorial-columns {
+    margin-top: clamp(1.75rem, 3.5vw, 2.6rem);
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(1.5rem, 4vw, 3.5rem);
+    color: var(--ink-muted);
+    font-size: 1.02rem;
+    line-height: 1.78;
+}
+
+.gesture-strip {
+    margin-top: clamp(2.8rem, 5.5vw, 4.4rem);
+    padding-top: 2rem;
+    border-top: 1px solid var(--line-light);
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1.25rem;
+}
+
+.gesture-strip li {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.gesture-num {
+    font-family: var(--serif);
+    font-size: 1rem;
+    font-style: italic;
+    color: var(--copper-dark);
+}
+
+.gesture-name {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--anthracite);
+}
+
+/* ==========================================================================
+   3. LA VIGNA E LA VENDEMMIA (RITAGLIO STRETTO SULLA TRAMA DEI FILARI)
+   ========================================================================== */
+
+.section-vineyard {
+    background: var(--ivory-soft);
+}
+
+.split-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.02fr) minmax(0, 0.98fr);
+    align-items: center;
+    gap: clamp(2.2rem, 5.5vw, 5rem);
+}
+
+.split-copy h2 {
+    margin-bottom: 1.4rem;
+    text-wrap: balance;
+}
+
+.split-copy p+p {
+    margin-top: 1.15rem;
+}
+
+.section-vineyard .split-copy p {
+    color: var(--ink-muted);
+    max-width: 54ch;
+}
+
+/* Ritaglio stretto sulla parte bassa e centrale della foto per mostrare da vicino i filari */
+.vineyard-crop-frame {
+    position: relative;
+    aspect-ratio: 4 / 4.3;
+    overflow: hidden;
+    background: var(--anthracite);
+    border: 1px solid rgba(184, 115, 72, 0.28);
+}
+
+.vineyard-crop-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 58% 95%;
+    transform: scale(1.95);
+    transform-origin: 58% 95%;
+    transition: transform 1.4s var(--ease-editorial);
+}
+
+/* ==========================================================================
+   4. IL LAVORO IN CANTINA (FOTO 1 — CANTINA IN PIETRA CON LE BOTTI)
+   ========================================================================== */
+
+.section-cellar {
+    background: var(--anthracite);
+    color: var(--ivory);
+    position: relative;
+}
+
+.section-cellar .split-copy p {
+    color: rgba(246, 240, 230, 0.84);
+    max-width: 54ch;
+}
+
+.cellar-note {
+    margin-top: 1.5rem !important;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--line-dark);
+    font-size: 0.95rem;
+    color: var(--ivory-muted) !important;
+}
+
+.cellar-photo-frame {
+    position: relative;
+    aspect-ratio: 16 / 11;
+    overflow: hidden;
+    background: var(--anthracite-deep);
+    border: 1px solid rgba(215, 150, 108, 0.3);
+}
+
+.cellar-photo-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 54% 50%;
+}
+
+/* ==========================================================================
+   5. IL NOSTRO VINO
+   ========================================================================== */
+
+.section-wine {
+    background: var(--ivory-bright);
+    border-bottom: 1px solid var(--line-light);
+}
+
+.wine-intro {
+    max-width: 38rem;
+    margin: 0 auto clamp(2rem, 5vw, 4.5rem);
+    text-align: center;
+}
+
+.wine-intro > p:last-child {
+    margin-top: 1rem;
+    color: var(--ink-muted);
+}
+
+[data-wine="rosso"] {
+    --wine-accent: #642434;
+    --wine-wash: #f5e8e7;
+    --wine-button-text: #fff8f5;
+}
+
+[data-wine="bianco"] {
+    --wine-accent: #e8d39d;
+    --wine-wash: #f8f0db;
+    --wine-button-text: #3d3018;
+}
+
+[data-wine="rosato"] {
+    --wine-accent: #9a4a5a;
+    --wine-wash: #f6e6e8;
+    --wine-button-text: #fff8f5;
+}
+
+.wine-selection {
+    scroll-margin-top: 1rem;
+}
+
+.wine-cards {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(0.45rem, 5vw, 4rem);
+}
+
+.wine-card {
+    min-width: 0;
+    display: grid;
+    justify-items: center;
+    gap: clamp(0.65rem, 2vw, 1.6rem);
+}
+
+.wine-menu-links { display: none; }
+
+.wine-preview:has(.wine-preview-motion:not([hidden])) img { visibility: hidden; }
+
+.wine-preview {
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    touch-action: manipulation;
+    display: grid;
+    place-items: center;
+    width: min(100%, 11rem);
+    height: clamp(12rem, 29vw, 25rem);
+    position: relative;
+    overflow: clip;
+}
+
+.wine-preview img,
+.wine-preview-motion {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: auto;
+    max-width: none;
+    height: 100%;
+    transform: translateX(-50%);
     pointer-events: none;
 }
-.deco-1 { top: 10%; left: 10%; animation: spin 20s linear infinite; }
-.deco-2 { top: 50%; right: 5%; animation: spin 15s linear infinite reverse; }
-.deco-3 { bottom: 20%; left: 15%; animation: spin 25s linear infinite; }
 
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+.wine-card .wine-choice {
+    width: auto;
+    padding-inline: clamp(0.5rem, 2vw, 1.75rem);
+    background: var(--wine-accent);
+    color: var(--wine-button-text);
 }
 
-@media (min-width: 768px) {
-    .card-odd { left: 10vw; }
-    .card-even { right: 10vw; }
+.wine-choice:hover,
+.wine-choice[aria-expanded="true"] {
+    border-color: currentColor;
+    box-shadow: inset 0 0 0 1px currentColor;
+}
+
+.wine-experience {
+    margin-top: clamp(3rem, 7vw, 6rem);
+    background: var(--wine-wash);
+    --stage-height: calc(100svh - var(--header-h));
+}
+
+.wine-experience-heading {
+    padding-block: clamp(1.5rem, 5vw, 4rem);
+}
+
+.wine-experience h3,
+.wine-experience h4 {
+    font-family: var(--serif);
+    font-weight: 600;
+    line-height: 1;
+    text-wrap: balance;
+}
+
+.wine-experience h3 {
+    font-size: clamp(2.8rem, 7.8vw, 7rem);
+    scroll-margin-top: 1rem;
+}
+
+.wine-sequence-bottle {
+    min-height: 250svh;
+}
+
+.wine-stage {
+    position: sticky;
+    top: var(--header-h);
+    height: var(--stage-height);
+    isolation: isolate;
+}
+
+.wine-sequence-bottle .wine-stage {
+    display: grid;
+    grid-template-columns: minmax(0, .78fr) minmax(0, 1.34fr);
+    grid-template-rows: minmax(0, 1fr);
+    align-items: center;
+    gap: clamp(.7rem, 2vw, 2rem);
+    padding: clamp(1rem, 4vw, 4rem);
+}
+
+.wine-bottle {
+    display: block;
+    grid-column: 2;
+    grid-row: 1;
+    width: 100%;
+    height: 100%;
+    min-width: 0;
+    min-height: 0;
+}
+
+.wine-chapters {
+    display: grid;
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.wine-chapters li {
+    grid-area: 1 / 1;
+    align-self: center;
+    opacity: 0;
+}
+
+.wine-chapters li:first-child {
+    opacity: 1;
+}
+
+.wine-chapters h4 {
+    font-size: clamp(2.45rem, 5.4vw, 6rem);
+}
+
+.wine-chapters p,
+.wine-route-copy p {
+    margin-top: 0.75rem;
+    max-width: 36ch;
+    color: var(--ink-muted);
+    font-size: clamp(0.87rem, 1.35vw, 1.18rem);
+    line-height: 1.5;
+}
+
+.wine-journey {
+    display: grid;
+}
+
+.wine-journey-landscape,
+.wine-stage-glass {
+    grid-area: 1 / 1;
+    min-width: 0;
+}
+
+.wine-pour-space {
+    height: calc(var(--stage-height) * .5);
+}
+
+html.is-pouring { overflow: hidden; overscroll-behavior: none; }
+
+.wine-stage-glass {
+    --film-width: min(100%, calc(var(--stage-height) * 16 / 9));
+    align-self: start;
+    display: grid;
+    place-items: center;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.wine-pour {
+    display: block;
+    width: var(--film-width);
+    aspect-ratio: 16 / 9;
+}
+
+.wine-glass-trail,
+.wine-grapes {
+    position: absolute;
+    inset: 0;
+}
+
+.wine-glass {
+    position: absolute;
+    display: block;
+    left: 0;
+    top: 0;
+    z-index: 1;
+    width: calc(var(--film-width) * 340 / 960);
+    aspect-ratio: 340 / 540;
+    transform-origin: 50% 50%;
+}
+
+.wine-grapes {
+    opacity: var(--trail-opacity, 0);
+}
+
+.wine-grapes img {
+    position: absolute;
+    width: clamp(2.5rem, 8vw, 8rem);
+    height: min(16%, 9rem);
+    object-fit: contain;
+    opacity: .63;
+    transform: var(--fruit-transform, translate(0, 0)) rotate(var(--fruit-angle, -14deg));
+    transition: transform 180ms ease-out;
+}
+
+.wine-grapes img:nth-child(1) { top: 4%; left: 1%; }
+.wine-grapes img:nth-child(2) { top: 4%; right: 1%; --fruit-angle: 16deg; }
+.wine-grapes img:nth-child(3) { bottom: 4%; left: 1%; --fruit-angle: 12deg; }
+.wine-grapes img:nth-child(4) { bottom: 4%; right: 1%; --fruit-angle: -20deg; }
+
+.wine-route {
+    position: relative;
+}
+
+.wine-route-start {
+    height: calc(var(--stage-height) * .22);
+}
+
+.wine-route-end {
+    height: calc(var(--stage-height) * .58);
+}
+
+.wine-glass-path {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: visible;
+}
+
+.wine-glass-path path {
+    fill: none;
+    stroke: var(--copper-dark);
+    stroke-opacity: .52;
+    stroke-width: 1.4;
+    stroke-dasharray: 2 8;
+    stroke-linecap: round;
+}
+
+.wine-trail-notes li {
+    min-height: calc(var(--stage-height) * .91);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: clamp(.9rem, 2.5vw, 2.5rem);
+    padding: clamp(1rem, 4vw, 4.5rem) clamp(2rem, 11vw, 14rem) clamp(1rem, 4vw, 4.5rem) 51%;
+}
+
+.wine-trail-notes li:nth-child(even) {
+    padding-inline: clamp(2rem, 11vw, 14rem) 51%;
+}
+
+.wine-trail-notes li:nth-child(1) {
+    background: linear-gradient(145deg, transparent, #fff9ee);
+}
+
+.wine-trail-notes li:nth-child(2) {
+    background: linear-gradient(145deg, #fff9ee, #eaddcc);
+}
+
+.wine-trail-notes li:nth-child(3) {
+    background: linear-gradient(145deg, #eaddcc, var(--wine-wash));
+}
+
+.wine-trail-notes li:nth-child(4) {
+    background: linear-gradient(145deg, var(--wine-wash), var(--ivory-bright));
+}
+
+.wine-route-copy,
+.wine-trail-notes li > img {
+    opacity: var(--scene-opacity, 0);
+    transform: translateY(var(--scene-shift, 0));
+}
+
+.wine-trail-notes h4 {
+    font-size: clamp(2.2rem, 5vw, 5.2rem);
+}
+
+.wine-trail-notes li > img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1.7;
+    object-fit: cover;
+    border-radius: 2px;
+}
+
+.wine-trail-notes li > .wine-route-grape {
+    width: min(100%, 20rem);
+    object-fit: contain;
+    object-position: left center;
+}
+
+@media (max-width: 760px) {
+    .wine-preview {
+        height: clamp(9.8rem, 42vw, 16rem);
+    }
+
+    .wine-card .wine-choice {
+        font-size: clamp(0.68rem, 2.6vw, 0.88rem);
+    }
+
+    .wine-sequence-bottle .wine-stage {
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-rows: minmax(0, 1.75fr) minmax(0, 1fr);
+    }
+
+    .wine-bottle {
+        grid-column: 1;
+        grid-row: 1;
+    }
+
+    .wine-chapters {
+        grid-row: 2;
+        padding-inline: clamp(.4rem, 4vw, 2rem);
+    }
+
+    .wine-chapters h4 {
+        font-size: clamp(1.8rem, 6.6vw, 3.5rem);
+    }
+
+    .wine-trail-notes li {
+        padding-right: 5%;
+    }
+
+    .wine-trail-notes li:nth-child(even) {
+        padding-left: 5%;
+    }
+
+    .wine-trail-notes h4 {
+        font-size: clamp(1.5rem, 5.3vw, 3rem);
+    }
+
+    .wine-route-copy p {
+        font-size: clamp(.78rem, 2.4vw, 1rem);
+    }
+}
+
+
+@media (max-width: 760px), (max-height: 440px) and (pointer: coarse) {
+    .js-nav .site-nav.is-open {
+        max-height: calc(100dvh - var(--header-h));
+        overflow-y: auto;
+        overscroll-behavior: contain;
+    }
+    .wine-menu-links:not([hidden]) {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0 .8rem;
+        padding-inline-start: .75rem;
+        border-inline-start: 2px solid var(--copper);
+    }
+    .site-nav .wine-menu-links a {
+        display: flex;
+        align-items: center;
+        min-height: 44px;
+    }
+    .wine-card .wine-choice {
+        min-height: 46px;
+        touch-action: manipulation;
+    }
+}
+
+@media (max-width: 600px) and (orientation: portrait) {
+    .wine-intro { margin-bottom: 1.5rem; }
+    .wine-cards { gap: clamp(.35rem, 1.6vw, .75rem); }
+    .wine-preview { height: clamp(10.8rem, 49vw, 16.5rem); }
+    .wine-card .wine-choice { width: 100%; padding: .55rem .25rem; font-size: .78rem; line-height: 1.25; }
+    .wine-experience-heading { padding-block: 1.8rem .75rem; }
+    .wine-sequence-bottle .wine-stage {
+        padding: .7rem max(1.15rem, env(safe-area-inset-right)) 1.2rem max(1.15rem, env(safe-area-inset-left));
+        grid-template-rows: minmax(0, 3fr) minmax(min-content, 1.35fr);
+        gap: .7rem;
+    }
+    .wine-chapters { align-self: start; padding-inline: .15rem; }
+    .wine-chapters p, .wine-route-copy p { font-size: .96rem; line-height: 1.5; }
+    .wine-stage-glass { overflow: clip; }
+    .wine-trail-notes li {
+        padding-inline: 43% max(1rem, env(safe-area-inset-right));
+        min-height: calc(var(--stage-height) * .94);
+    }
+    .wine-trail-notes li:nth-child(even) {
+        padding-inline: max(1rem, env(safe-area-inset-left)) 43%;
+    }
+    .wine-trail-notes h4 { font-size: clamp(1.6rem, 6.4vw, 2.4rem); }
+    .wine-trail-notes li > img { aspect-ratio: 4 / 3; }
+    .wine-grapes img { width: 2.7rem; height: 3.8rem; }
+}
+
+@media (orientation: landscape) and (max-height: 440px) {
+    .wine-sequence-bottle .wine-stage {
+        grid-template-columns: minmax(0, .95fr) minmax(0, 1.35fr);
+        grid-template-rows: minmax(0, 1fr);
+        padding: .7rem 4vw;
+    }
+    .wine-bottle { grid-area: 1 / 2; }
+    .wine-chapters { grid-area: 1 / 1; padding: 0; }
+    .wine-chapters h4, .wine-trail-notes h4 { font-size: clamp(1.4rem, 4vw, 2.2rem); }
+    .wine-chapters p, .wine-route-copy p { font-size: .875rem; line-height: 1.35; }
+    .wine-trail-notes li > img { width: auto; max-width: 100%; height: 24svh; object-fit: contain; align-self: start; }
+    .wine-grapes img { height: 14%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .wine-sequence-bottle {
+        min-height: auto;
+    }
+
+    .wine-stage {
+        position: relative;
+        top: auto;
+        height: auto;
+    }
+
+    .wine-sequence-bottle .wine-stage {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+    }
+
+    .wine-bottle {
+        grid-area: 1 / 1;
+        height: min(23rem, 64vw);
+    }
+
+    .wine-chapters {
+        grid-area: 2 / 1;
+        gap: 1.3rem;
+        padding: 1.25rem;
+    }
+
+    .wine-chapters li {
+        grid-area: auto;
+        opacity: 1 !important;
+    }
+
+    .wine-journey-landscape,
+    .wine-stage-glass {
+        grid-area: auto;
+    }
+
+    .wine-stage-glass {
+        order: -1;
+        min-height: 15rem;
+    }
+
+    .wine-glass-trail {
+        display: grid;
+        place-items: center;
+    }
+
+    .wine-glass {
+        position: static;
+        width: min(35vw, 9rem);
+        transform: none !important;
+    }
+
+    .wine-pour-space,
+    .wine-route-start,
+    .wine-route-end,
+    .wine-pour,
+    .wine-glass-path,
+    .wine-grapes {
+        display: none;
+    }
+
+    .wine-trail-notes li,
+    .wine-trail-notes li:nth-child(even) {
+        min-height: 0;
+        padding: 2rem clamp(1.3rem, 7vw, 5rem);
+    }
+
+    .wine-route-copy,
+    .wine-trail-notes li > img {
+        opacity: 1;
+        transform: none;
+    }
+
+    .wine-trail-notes li > img {
+        max-width: 30rem;
+    }
+}
+
+
+/* ==========================================================================
+   6. A TAVOLA (FOTO 2 — TAVOLA APPARECCHIATA TRA I FILARI)
+   ========================================================================== */
+
+.section-table {
+    background: var(--ivory);
+}
+
+.table-layout {
+    display: grid;
+    gap: clamp(2rem, 4.5vw, 3.4rem);
+}
+
+.table-intro {
+    max-width: 48rem;
+}
+
+.table-intro h2 {
+    margin-bottom: 1.2rem;
+    text-wrap: balance;
+}
+
+.table-intro p {
+    color: var(--ink-muted);
+    font-size: 1.04rem;
+    max-width: 58ch;
+}
+
+.table-photo-frame {
+    position: relative;
+    aspect-ratio: 3 / 2;
+    overflow: hidden;
+    background: var(--anthracite-soft);
+    border: 1px solid rgba(184, 115, 72, 0.28);
+}
+
+.table-photo-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 52%;
+}
+
+.table-closing {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem 2.5rem;
+    padding-top: 0.5rem;
+}
+
+.table-closing p {
+    max-width: 54ch;
+    color: var(--ink-muted);
+}
+
+/* ==========================================================================
+   CONTATTI E FOOTER
+   ========================================================================== */
+
+.section-contacts {
+    background: var(--anthracite-soft);
+    color: var(--ivory);
+    border-top: 1px solid rgba(215, 150, 108, 0.25);
+}
+
+.contacts-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.95fr);
+    align-items: start;
+    gap: clamp(2.5rem, 6vw, 5rem);
+}
+
+.contacts-copy h2 {
+    margin-bottom: 1.25rem;
+}
+
+.contacts-copy p {
+    color: rgba(246, 240, 230, 0.85);
+    max-width: 48ch;
+}
+
+.contacts-highlights {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--line-dark);
+    display: grid;
+    gap: 1.15rem;
+}
+
+.contacts-highlights li {
+    display: grid;
+    gap: 0.2rem;
+}
+
+.highlight-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--copper-light);
+}
+
+.contact-form {
+    background: rgba(24, 22, 21, 0.55);
+    border: 1px solid rgba(215, 150, 108, 0.26);
+    padding: clamp(1.5rem, 3.5vw, 2.4rem);
+    display: grid;
+    gap: 1.1rem;
+}
+
+.form-title {
+    font-family: var(--serif);
+    font-size: 1.75rem;
+    font-weight: 500;
+    color: var(--ivory);
+    margin-bottom: 0.25rem;
+}
+
+.form-field {
+    display: grid;
+    gap: 0.4rem;
+}
+
+.form-field label {
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--ivory-muted);
+}
+
+.form-field input,
+.form-field textarea {
+    width: 100%;
+    padding: 0.75rem 0.9rem;
+    background: rgba(246, 240, 230, 0.06);
+    border: 1px solid rgba(246, 240, 230, 0.22);
+    color: var(--ivory);
+    border-radius: 0;
+    transition: border-color 0.25s ease, background-color 0.25s ease;
+}
+
+.form-field input::placeholder,
+.form-field textarea::placeholder {
+    color: rgba(207, 195, 180, 0.55);
+}
+
+.form-field input:focus,
+.form-field textarea:focus {
+    border-color: var(--copper-light);
+    background: rgba(246, 240, 230, 0.1);
+    outline: none;
+}
+
+.form-status {
+    font-size: 0.88rem;
+    color: #e9c5aa;
+    min-height: 1.4rem;
+}
+
+.site-footer {
+    background: var(--anthracite-deep);
+    color: var(--ivory-muted);
+    border-top: 1px solid rgba(246, 240, 230, 0.1);
+    padding-block: 1.75rem;
+}
+
+.footer-inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem 2rem;
+}
+
+.footer-brand-group {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.5rem 1.1rem;
+}
+
+.footer-brand-group .brand-text {
+    color: var(--ivory);
+    font-size: 1.25rem;
+}
+
+.footer-motto {
+    font-size: 0.84rem;
+}
+
+.footer-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.9rem 1.5rem;
+}
+
+.footer-nav a {
+    font-size: 0.83rem;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.footer-nav a:hover {
+    color: var(--copper-light);
+}
+
+/* ==========================================================================
+   MOVIMENTI DISCRETI SULLE TRE FOTOGRAFIE E SUI TESTI
+   ========================================================================== */
+
+@keyframes heroPhotoSettle {
+    from {
+        transform: scale(1.07);
+    }
+
+    to {
+        transform: scale(1.01);
+    }
+}
+
+@keyframes heroTextFade {
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.motion-ready .hero-photo {
+    animation: heroPhotoSettle 2.4s var(--ease-editorial) both;
+}
+
+.motion-ready .hero-stagger {
+    animation: heroTextFade 0.95s var(--ease-editorial) both;
+}
+
+.motion-ready .hero-stagger:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.motion-ready .hero-stagger:nth-child(2) {
+    animation-delay: 0.24s;
+}
+
+.motion-ready .hero-stagger:nth-child(3) {
+    animation-delay: 0.38s;
+}
+
+.motion-ready .hero-stagger:nth-child(4) {
+    animation-delay: 0.52s;
+}
+
+/* Elementi rivelati allo scorrimento */
+.motion-ready [data-reveal="text"] {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.85s var(--ease-editorial), transform 0.85s var(--ease-editorial);
+}
+
+.motion-ready [data-reveal="text"].is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Ritaglio vigna ravvicinata */
+.motion-ready [data-reveal="vineyard-crop"] {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 1s var(--ease-editorial), transform 1s var(--ease-editorial);
+}
+
+.motion-ready [data-reveal="vineyard-crop"] .vineyard-crop-frame img {
+    transform: scale(2.05);
+}
+
+.motion-ready [data-reveal="vineyard-crop"].is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.motion-ready [data-reveal="vineyard-crop"].is-visible .vineyard-crop-frame img {
+    transform: scale(1.95);
+}
+
+/* Foto 1: rivelazione discreta delle botti in pietra */
+.motion-ready [data-reveal="barrels"] .cellar-photo-frame {
+    opacity: 0;
+    clip-path: inset(5% 4% 5% 4%);
+    transition: opacity 1.1s var(--ease-editorial), clip-path 1.15s var(--ease-editorial);
+}
+
+.motion-ready [data-reveal="barrels"] .cellar-photo-frame img {
+    transform: scale(1.06);
+    transition: transform 1.45s var(--ease-editorial);
+}
+
+.motion-ready [data-reveal="barrels"].is-visible .cellar-photo-frame {
+    opacity: 1;
+    clip-path: inset(0% 0% 0% 0%);
+}
+
+.motion-ready [data-reveal="barrels"].is-visible .cellar-photo-frame img {
+    transform: scale(1);
+}
+
+/* Foto 2: transizione morbida sulla tavola apparecchiata */
+.motion-ready [data-reveal="table-photo"] {
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity 1.25s var(--ease-editorial), transform 1.25s var(--ease-editorial);
+}
+
+.motion-ready [data-reveal="table-photo"] .table-photo-frame img {
+    transform: scale(1.045);
+    transition: transform 1.6s var(--ease-editorial);
+}
+
+.motion-ready [data-reveal="table-photo"].is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.motion-ready [data-reveal="table-photo"].is-visible .table-photo-frame img {
+    transform: scale(1);
+}
+
+/* ==========================================================================
+   RESPONSIVE DESKTOP / TABLET / MOBILE
+   ========================================================================== */
+
+@media (max-width: 920px) {
+
+    .split-layout,
+    .contacts-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .split-layout-reverse .cellar-figure {
+        order: 2;
+    }
+
+    .split-layout-reverse .split-copy {
+        order: 1;
+    }
+
+    .editorial-columns {
+        grid-template-columns: 1fr;
+        gap: 1.15rem;
+    }
+
+    .gesture-strip {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+}
+
+@media (max-width: 760px), (max-height: 440px) and (pointer: coarse) {
+    :root {
+        --header-h: 4.1rem;
+    }
+
+    .js-nav .nav-toggle {
+        display: inline-flex;
+    }
+
+    .js-nav .site-nav {
+        position: absolute;
+        top: var(--header-h);
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        padding: 0.5rem 1.25rem 1rem;
+        background: rgba(24, 22, 21, 0.97);
+        color: var(--ivory);
+        border-bottom: 1px solid rgba(215, 150, 108, 0.28);
+        display: none;
+    }
+
+    .js-nav .site-header.is-scrolled .site-nav {
+        background: rgba(246, 240, 230, 0.98);
+        color: var(--anthracite);
+        border-bottom-color: var(--line-light);
+    }
+
+    .js-nav .site-nav.is-open {
+        display: flex;
+    }
+
+    .js-nav .site-nav a {
+        padding-block: 0.85rem;
+        font-size: 0.95rem;
+        border-bottom: 1px solid rgba(215, 150, 108, 0.16);
+    }
+
+    .js-nav .site-nav a:last-child {
+        border-bottom: none;
+    }
+
+    .hero {
+        min-height: 88svh;
+        padding-bottom: 3rem;
+    }
+
+    .hero-photo {
+        object-position: 62% 42%;
+    }
+
+    .vineyard-crop-frame {
+        aspect-ratio: 4 / 3.2;
+    }
+
+    .vineyard-crop-frame img {
+        object-position: 58% 95%;
+        transform: scale(1.95);
+    }
+
+    .motion-ready [data-reveal="vineyard-crop"] .vineyard-crop-frame img {
+        transform: scale(2.04);
+    }
+
+    .motion-ready [data-reveal="vineyard-crop"].is-visible .vineyard-crop-frame img {
+        transform: scale(1.95);
+    }
+
+    .table-photo-frame {
+        aspect-ratio: 4 / 3;
+    }
+
+    .table-photo-frame img {
+        object-position: 54% 58%;
+    }
+
+
+    .gesture-strip {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .btn {
+        width: 100%;
+    }
+
+    .hero-actions .btn,
+    .table-closing .btn {
+        width: auto;
+    }
+}
+
+@media (max-width: 420px) {
+
+    .hero-actions .btn,
+    .table-closing .btn {
+        width: 100%;
+    }
+
+    .gesture-strip {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Rispetto rigoroso per le preferenze di riduzione del movimento */
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+
+    .motion-ready [data-reveal] {
+        opacity: 1 !important;
+        transform: none !important;
+    }
+
+    .motion-ready [data-reveal="barrels"] .cellar-photo-frame {
+        opacity: 1 !important;
+        clip-path: none !important;
+    }
+
+    .motion-ready [data-reveal="barrels"] .cellar-photo-frame img,
+    .motion-ready [data-reveal="table-photo"] .table-photo-frame img {
+        transform: none !important;
+    }
 }

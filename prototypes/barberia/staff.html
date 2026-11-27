@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Agenda barberia · Forbici &amp; Pettini</title>
+  <link rel="stylesheet" href="css/staff.css">
+  <link rel="stylesheet" href="css/demo.css">
+  <script src="js/demo-store.js" defer></script>
+  <script src="js/demo-guide.js" defer></script>
+  <script src="js/staff.js" defer></script>
+</head>
+<body data-demo-role="staff">
+  <header class="staff-top">
+    <div><p>Forbici &amp; Pettini</p><h1>Agenda barberia</h1></div>
+    <div class="demo-actions"><span class="demo-badge">Demo locale · dati non salvati</span><a class="demo-switch" href="index.html">Vista cliente ↗</a><button id="exit" type="button">Esci</button></div>
+  </header>
+  <main>
+    <p id="status" role="status">Verifica dell’accesso…</p>
+    <section id="workspace" hidden aria-label="Agenda amministrativa">
+      <nav id="staff-nav" aria-label="Sezioni dell’agenda">
+        <button id="agenda-nav" type="button">Agenda</button>
+        <button id="alerts-nav" type="button">Notifiche</button>
+        <button id="roster-nav" type="button" hidden>Barbieri e portfolio</button>
+      </nav>
+      <section id="agenda">
+        <div class="toolbar">
+          <label>Barbiere <select id="barber"></select></label>
+          <label>Data <input id="day" type="date" required></label>
+          <div class="actions">
+            <button id="prev" type="button">Giorno precedente</button>
+            <button id="today" type="button">Oggi</button>
+            <button id="next" type="button">Giorno successivo</button>
+            <button id="reload" type="button">Aggiorna</button>
+            <button id="add-block" type="button">Blocca fascia</button>
+          </div>
+        </div>
+        <h2 id="schedule-title">Appuntamenti</h2>
+        <div class="legend" aria-label="Legenda">
+          <span class="new">Nuovo oggi</span><span class="current">Prenotato</span>
+          <span class="free">Libero</span><span class="cancelled">Disdetto</span>
+        </div>
+        <table aria-labelledby="schedule-title">
+          <thead><tr><th scope="col">Orario</th><th scope="col">Appuntamento</th></tr></thead>
+          <tbody id="grid"></tbody>
+        </table>
+        <details id="report"><summary>Resoconto giornata</summary><div id="report-content"></div></details>
+        <details id="history"><summary>Storico disdette della giornata</summary><ul id="history-list"></ul></details>
+      </section>
+      <section id="alerts" hidden>
+        <h2>Notifiche</h2><div id="alert-list"></div>
+      </section>
+      <section id="roster" hidden>
+        <h2>Barbieri e portfolio</h2><div id="roster-list"></div>
+        <form id="new-barber">
+          <h3>Aggiungi un barbiere</h3>
+          <label>Nome pubblico <input name="name" required maxlength="80"></label>
+          <label>Codice univoco <input name="id" required maxlength="40" pattern="[a-z0-9]+(?:-[a-z0-9]+)*" placeholder="es. luca-rossi"></label>
+          <label>Descrizione e specialità <textarea name="bio" required maxlength="1200" rows="4"></textarea></label>
+          <fieldset><legend>Servizi offerti</legend><div id="roster-services"></div></fieldset>
+          <label>Foto profilo <input type="file" name="avatar" accept="image/jpeg,image/png,image/webp" required></label>
+          <label>Tre foto dei tagli <input type="file" name="photos" accept="image/jpeg,image/png,image/webp" multiple required></label>
+          <button type="submit">Pubblica profilo e crea accesso</button>
+        </form>
+        <div id="new-credentials" role="status"></div>
+      </section>
+    </section>
+  </main>
+  <dialog id="details" aria-labelledby="detail-title">
+    <header class="dialog-top"><h2 id="detail-title"></h2><button id="close" type="button">Chiudi</button></header>
+    <div id="detail-content"></div>
+    <p id="detail-status" role="status"></p>
+  </dialog>
+</body>
+</html>

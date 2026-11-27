@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Forbici & Pettini · Visita guidata</title>
+  <link rel="stylesheet" href="barberia-guida.css">
+  <script src="barberia-guida.js" defer></script>
+<script src="guida-schermo.js?v=2" defer></script>
+</head>
+<body>
+  <header class="guide-top"><a id="guide-back" href="index.html" aria-label="Torna alla vetrina">← Vetrina</a><span>PROGETTO 02 / SITI PER ATTIVITÀ</span><strong id="view-label">VISTA CLIENTE</strong></header>
+  <main id="tour-stage">
+    <section id="cliente" class="tour is-active" aria-labelledby="client-title">
+      <aside class="story">
+        <p class="eyebrow">01 / PROTOTIPO INTERATTIVO · BARBERIA</p><h1>Forbici & Pettini</h1><h2 id="client-title">Il salone visto dal cliente</h2>
+        <p>Questo modello mostra come un’attività possa presentarsi, ricevere prenotazioni e organizzare il team in uno spazio digitale. È un esempio, non un formato obbligato: grafica, animazioni, struttura e funzioni si costruiscono intorno all’identità del titolare e alle esigenze dei suoi clienti.</p>
+        <details><summary>Per quali altre attività può funzionare?</summary><p>Calendario, disponibilità, scelta del professionista e area personale possono essere adattati a centri estetici, saloni di bellezza, studi di fisioterapia, psicologi, consulenti, personal trainer, fotografi, scuole e laboratori su prenotazione. L’esperienza può essere animata oppure essenziale.</p></details>
+        <p>Le interfacce che vedi sono copie locali. La colonna spiega i comandi selezionati. Prenotazioni e modifiche sono simulate: non vengono inviate a un’attività e scompaiono ricaricando la pagina.</p>
+        <p>La schermata di ingresso introduce l’identità della barberia. Dopo il clic, il cliente può scegliere fra <strong>Tagli & barbieri</strong>, per conoscere il team e prenotare, e <strong>Merch & prodotti</strong>, per esplorare il catalogo. L’<strong>Area personale</strong> raccoglie appuntamenti, avvisi e profilo.</p>
+        <div class="live-card" aria-live="polite"><span class="eyebrow">STAI ESPLORANDO</span><h3 id="client-action-title">Ingresso nel salone</h3><p id="client-action-text">Clicca per continuare nell’anteprima. Le animazioni accompagnano il passaggio fra gli ambienti; il sito può essere progettato con uno stile visivo diverso per ogni attività.</p></div>
+        <div id="client-backend" class="backend-note" hidden role="status"><strong>Questa è una demo senza backend</strong><p id="client-backend-text"></p></div>
+        <details><summary>Come funzionerebbe la prenotazione reale?</summary><p>Il cliente sceglie il barbiere, sfoglia i lavori, seleziona servizio e giorno, vede solo gli orari liberi e conferma. Un sistema collegato all’agenda evita le sovrapposizioni, associa la prenotazione al profilo e può inviare email di conferma, avvisi sulle modifiche e un promemoria, per esempio 8 ore prima dell’appuntamento. Tempi e canali si configurano con il titolare.</p></details>
+        <details><summary>E se serve vendere prodotti?</summary><p>Il catalogo mostra immagini, descrizioni, prezzi e carrello. Pagamento e conferma d’ordine non fanno parte di questa demo. Per un sito reale si può realizzare un negozio con spedizione, oppure un carrello per prenotare i prodotti e ritirarli in negozio. La scelta dipende dall’attività.</p></details>
+      </aside>
+      <div class="demo-pane"><div class="pane-head">
+          <button type="button" data-switch="admin">Admin</button>
+          <button type="button" data-reload="client">Ricomincia</button>
+          <button type="button" data-expand>Schermo intero</button>
+        </div><iframe id="client-frame" title="Demo del sito vista cliente" src="prototypes/barberia/index.html" sandbox="allow-scripts allow-same-origin allow-forms"></iframe></div>
+    </section>
+
+    <section id="amministrazione" class="tour admin-tour" aria-labelledby="admin-title">
+      <aside class="story">
+        <p class="eyebrow">02 / GESTIONE INTERNA</p><h2 id="admin-title">Il lavoro visto dal team</h2>
+        <p>Dietro l’esperienza del cliente c’è una vista più essenziale: un’agenda giornaliera simile a un foglio di lavoro. Ogni barbiere può consultare i propri appuntamenti; il titolare può vedere l’intera attività.</p>
+        <div class="live-card" aria-live="polite"><span class="eyebrow">STAI ESPLORANDO</span><h3 id="admin-action-title">Agenda del titolare</h3><p id="admin-action-text">Seleziona un giorno o un barbiere, poi apri una casella. Verde indica una nuova prenotazione, bianco una prenotazione già presente, grigio una fascia libera e rosso una disdetta.</p></div>
+        <div id="admin-backend" class="backend-note" hidden role="status"><strong>Questa è una demo senza backend</strong><p id="admin-backend-text"></p></div>
+        <details><summary>Resoconto e notifiche</summary><p>Il resoconto mostra tempo da agenda degli appuntamenti serviti, numero di clienti, incassi registrati, assenze e intervalli rimasti liberi. Le notifiche segnalano nuove prenotazioni, spostamenti e disdette. In questa copia sono esempi locali.</p></details>
+        <details><summary>Permessi del titolare e dello staff</summary><p>Il titolare può aggiungere o disattivare barbieri, assegnare servizi e aggiornare foto profilo, lavori e descrizioni. In un sistema reale ogni barbiere ha credenziali proprie e vede l’agenda autorizzata; i collaboratori non possono disattivare altri account o usare i comandi riservati al proprietario. Qui la vista admin è aperta senza credenziali per mostrare l’interfaccia.</p></details>
+        <p class="last-note">La versione finale può collegare queste viste a un’agenda condivisa, email e altre integrazioni scelte insieme al cliente. Questa anteprima resta indipendente dai servizi reali.</p>
+      </aside>
+      <div class="demo-pane"><div class="pane-head">
+          <button type="button" data-switch="client">Cliente</button>
+          <button type="button" data-reload="admin">Ricomincia</button>
+          <button type="button" data-expand>Schermo intero</button>
+        </div><iframe id="admin-frame" title="Demo dell’agenda amministrativa" data-src="prototypes/barberia/staff.html" loading="lazy" sandbox="allow-scripts allow-same-origin allow-forms"></iframe></div>
+    </section>
+  </main>
+  <div id="tour-curtain" aria-hidden="true"></div>
+</body>
+</html>

@@ -12,11 +12,11 @@ const ProductRepository = (() => {
             category: 'Luxury Watch',
             url: 'prototypes/aikon/index.html'
         },
-        'wine': {
-            id: 'wine',
-            name: 'Wine Journey',
-            category: 'Luxury Wine',
-            url: 'prototypes/wine/index.html'
+        'milkshake': {
+            id: 'milkshake',
+            name: 'Fruit Protein',
+            category: 'Product Landing Page',
+            url: 'prototypes/milkshake/dist/index.html'
         },
         'perfume': {
             id: 'perfume',

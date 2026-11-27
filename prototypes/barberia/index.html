@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#090706">
+<title>Forbici &amp; Pettini – Da Gianluca · Atelier di Barberia</title>
+<link rel="stylesheet" href="css/style.css?v=v19">
+<link rel="stylesheet" href="css/product-images.css">
+<link rel="stylesheet" href="css/animations.css?v=1">
+<link rel="stylesheet" href="css/video-engine.css?v=1">
+<link rel="stylesheet" href="css/demo.css">
+</head>
+<body data-screen="welcome" data-engine="video" data-demo-role="client">
+<div id="video-stage" aria-hidden="true">
+  <video class="scene-video is-active" muted playsinline preload="auto"></video>
+  <video class="scene-video" muted playsinline preload="auto"></video>
+</div>
+<div class="vignette" aria-hidden="true"></div>
+<div class="lantern" aria-hidden="true"></div>
+<div id="loading" aria-live="polite" aria-busy="true">
+  <img class="loading-logo" src="assets/logo.webp" width="500" height="500" alt="">
+  <div class="loading-progress-area">
+    <p id="loading-status">Preparazione del salone</p>
+    <div id="loading-bar" class="loading-bar" role="progressbar" aria-label="Caricamento del sito" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span></span></div>
+    <strong id="loading-value">0%</strong>
+  </div>
+  <button id="loading-retry" type="button" hidden>Riprova</button>
+</div>
+
+<header class="topbar" aria-label="Intestazione salone">
+  <div class="brand-mini">
+    <span class="dot" aria-hidden="true"></span>
+    <span>Forbici &amp; Pettini · Da Gianluca</span>
+  </div>
+  <div class="demo-actions">
+    <span class="demo-badge">Demo locale · dati non salvati</span>
+    <a class="demo-switch" href="staff.html">Vista admin ↗</a>
+    <button id="account-open" class="scene-pill" type="button" aria-haspopup="dialog">
+      <span aria-hidden="true">☰</span> <span id="account-label">Area personale</span>
+    </button>
+  </div>
+</header>
+
+<main>
+  <!-- 1. SCHERMATA DI BENVENUTO (visibile solo all'apertura) -->
+  <section id="s-welcome" class="screen" aria-label="Benvenuto">
+    <div class="welcome-card">
+      <h1><img class="welcome-logo" src="assets/logo.webp" width="500" height="500" alt="Forbici &amp; Pettini · Da Gianluca"></h1>
+      <button id="enter" class="cta" type="button">
+        <span>Clicca per continuare</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- 2. MENU CENTRALE (poltrona frontale a fuoco) -->
+  <section id="s-menu" class="screen" aria-label="Menu salone centrale">
+    <button class="nav-wing left" data-go="sinistra" type="button">
+      <span class="wing-title">Tagli &amp; barbieri</span>
+      <span class="wing-sub">Rituali classici, rasatura a panno caldo &amp; maestri</span>
+    </button>
+
+    <button class="nav-wing right" data-go="destra" type="button">
+      <span class="wing-title">Merch &amp; prodotti</span>
+      <span class="wing-sub">Cura della barba, cere &amp; accessori d'atelier</span>
+    </button>
+  </section>
+
+  <section id="s-sinistra" class="screen panel on-left" aria-labelledby="booking-title">
+    <div class="card-panel booking" data-mobile-step="team">
+      <header class="booking-header">
+        <div>
+          <h2 id="booking-title">Tagli &amp; barbieri</h2>
+          <p>Prenotazioni online</p>
+        </div>
+        <button class="booking-link" data-go="menu" type="button">Torna al salone</button>
+      </header>
+      <div class="booking-grid">
+        <div class="booking-team">
+          <section class="booking-column" aria-labelledby="barbers-title">
+            <h3 id="barbers-title">Scegli il barbiere</h3>
+            <div id="barber-options" class="booking-options"></div>
+          </section>
+          <section id="booking-work" class="booking-column" aria-labelledby="portfolio-title" hidden>
+            <h3 id="portfolio-title">Lavori</h3>
+            <div id="barber-portfolio" class="booking-portfolio">
+              <div class="booking-photo-window"></div>
+              <div class="booking-photo-controls">
+                <div class="booking-photo-dots" role="group" aria-label="Scegli una foto"></div>
+                <button class="booking-photo-toggle" type="button">Pausa</button>
+              </div>
+            </div>
+          </section>
+          <section class="booking-bios" aria-label="Profilo del barbiere" hidden>
+            <div id="barber-bios"></div>
+          </section>
+        </div>
+        <section class="booking-column booking-schedule" aria-labelledby="slots-title">
+          <div class="booking-schedule-header">
+            <h3 id="slots-title">Prenota</h3>
+            <button id="booking-mobile-team" class="booking-link booking-mobile-only" type="button">Cambia barbiere</button>
+          </div>
+          <p id="booking-summary" aria-live="polite"></p>
+          <div id="booking-step" class="booking-step" tabindex="-1">
+            <h4 id="booking-prompt"></h4>
+            <div id="booking-service-field">
+              <label for="booking-service">Servizio</label>
+              <select id="booking-service"></select>
+            </div>
+            <div class="booking-calendar" role="group" aria-label="Scegli il giorno">
+              <div class="calendar-nav">
+                <button id="month-prev" type="button" aria-label="Mese precedente">‹</button>
+                <h4 id="calendar-month" aria-live="polite"></h4>
+                <button id="month-next" type="button" aria-label="Mese successivo">›</button>
+              </div>
+              <div class="calendar-weekdays" aria-hidden="true">
+                <span>Lun</span><span>Mar</span><span>Mer</span><span>Gio</span><span>Ven</span><span>Sab</span><span>Dom</span>
+              </div>
+              <div id="calendar-days" class="calendar-days"></div>
+            </div>
+            <button id="booking-search" class="booking-next" type="button" disabled>Mostra gli orari</button>
+            <div id="booking-choices" class="booking-options"></div>
+            <p id="booking-status" role="status"></p>
+          </div>
+          <button id="booking-back" type="button" hidden>Indietro</button>
+        </section>
+      </div>
+      <button id="booking-mobile-next" class="booking-next booking-mobile-only" type="button">Scegli giorno e servizio</button>
+    </div>
+  </section>
+
+  <section id="s-destra" class="screen panel on-right" aria-labelledby="catalog-title">
+    <div class="card-panel catalog">
+      <header class="booking-header">
+        <div>
+          <h2 id="catalog-title">Merch &amp; prodotti</h2>
+          <p>Catalogo demo · Prezzi indicativi</p>
+        </div>
+        <button class="booking-link" data-go="menu" type="button">Torna al salone</button>
+      </header>
+      <nav class="catalog-categories" aria-label="Categorie prodotti">
+        <button type="button" data-category="shampoo" aria-pressed="true">Shampoo</button>
+        <button type="button" data-category="asciugamani" aria-pressed="false">Asciugamani</button>
+        <button type="button" data-category="styling" aria-pressed="false">Pre-styling e texture</button>
+      </nav>
+      <button id="cart-toggle" class="booking-link" type="button" aria-expanded="false" aria-controls="catalog-cart">Carrello demo <span id="cart-count">· 0 articoli</span></button>
+      <section id="catalog-cart" class="catalog-cart" aria-label="Carrello demo" hidden>
+        <ul id="cart-items"></ul>
+        <p id="cart-total"></p>
+        <button id="cart-checkout" type="button" hidden>Conferma ordine demo</button>
+        <p id="cart-confirmation" role="status"></p>
+      </section>
+      <p id="cart-status" class="visually-hidden" role="status"></p>
+      <ul id="catalog-products" class="catalog-products" aria-label="Prodotti"></ul>
+
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer" aria-label="Privacy e cookie">
+  <button type="button" data-policy="privacy">Privacy</button>
+  <button type="button" data-policy="cookies">Cookie policy</button>
+  <button type="button" data-policy="preferences">Preferenze cookie</button>
+</footer>
+
+<dialog id="account-dialog" class="site-dialog" aria-labelledby="account-title">
+  <header class="booking-header">
+    <h2 id="account-title">Area personale</h2>
+    <button id="account-close" class="booking-link" type="button">Chiudi</button>
+  </header>
+  <p id="account-message" role="status"></p>
+  <div id="account-content"></div>
+</dialog>
+
+<dialog id="policy-dialog" class="site-dialog policy-dialog" aria-labelledby="policy-title">
+  <header class="booking-header">
+    <h2 id="policy-title"></h2>
+    <form method="dialog"><button class="booking-link">Chiudi</button></form>
+  </header>
+  <p id="policy-text"></p>
+</dialog>
+
+<script src="js/video-engine.js?v=1"></script>
+<script src="js/typewriter.js"></script>
+<script src="js/demo-store.js"></script>
+<script src="js/demo-guide.js"></script>
+<script src="js/account.js?v=v3"></script>
+<script src="js/booking.js?v=v12"></script>
+<script src="js/catalog.js?v=v3"></script>
+</body>
+</html>
